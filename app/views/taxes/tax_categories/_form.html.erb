@@ -1,0 +1,24 @@
+<%= simple_form_for [:taxes, @tax_category], wrapper: :maxwell_horizontal_form, defaults: { grid_wrapper_html: { class: 'col-sm-9' } } do |f| %>
+  <div class="card">
+    <div class="card-header"><%= header %></div>
+
+    <div class="card-body">
+      <legend class="form-section">
+        <i class="fa fa-mobile"></i> <%= t('.section.tax') %>
+      </legend>
+
+      <div class="form-group row string required">
+        <%= f.input :name, as: :tel, wrapper: false, grid_wrapper_html: { class: 'col-sm-3' } %>
+        <%= f.input :comment, as: :tel, wrapper: false, grid_wrapper_html: { class: 'col-sm-3' } %>
+      </div>
+    </div>
+
+    <div class="card-footer">
+      <div class="float-right">
+        <%= link_to t('.cancel'), taxes_tax_categories_path, class: 'btn btn-secondary' %>
+        <%= f.button :submit, t('.submit'), class: 'btn btn-primary' %>
+      </div>
+    </div>
+  </div>
+<% end %>
+ 

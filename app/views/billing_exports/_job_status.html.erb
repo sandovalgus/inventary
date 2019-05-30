@@ -1,0 +1,13 @@
+<% if @job.finished? %>
+  <%= t('.finished', total: @billing_export.invoices.size) %>
+<% elsif @job.error? %>
+  <%= t('.error', error: @job.error_msg) %>
+<% elsif @job.enqueued? %>
+  <%= t('.enqueued', total: @billing_export.invoices.size) %>
+<% else %>
+  <% if @job.progress.zero? %>
+    <%= t(".connecting_#{@job.detailed_status}") %>
+  <% else %>
+    <%= t(".#{@job.detailed_status}", progress: @job.progress, total: @billing_export.invoices.size) %>
+  <% end %>
+<% end %>

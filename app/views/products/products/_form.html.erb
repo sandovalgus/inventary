@@ -1,0 +1,70 @@
+<%= simple_form_for [:products, @product], wrapper: :maxwell_horizontal_form, defaults: { grid_wrapper_html: { class: 'col-sm-9' } } do |f| %>
+  <div class="card">
+    <div class="card-header"><%= header %></div>
+
+    <div class="card-body">
+      <legend class="form-section">
+        <i class="fa fa-archive"></i> <%= t('.section.product') %>
+      </legend>
+      <div class="form-group row string required">
+        <%= f.input :product_number, wrapper: false, grid_wrapper_html: { class: 'col-sm-3' } %>
+        <span class="validate-icon-styles">
+        <%# <div id="valid-product-number"> </div> %>
+          <span id="valid-product-number" class="fa fa-check-circle"></span>
+        </span>
+       
+        <div id="invalid-product-number"  ></div>
+      </div>
+      <div class="form-group row string required">
+        <%= f.input :name, wrapper: false, grid_wrapper_html: { class: 'col-sm-6' }  %>
+      
+      </div>
+
+       <div class="form-group row string required">
+          <%= f.association :product_type, wrapper: false, grid_wrapper_html: { class: 'col-sm-3' } %>
+      </div>
+
+      <%= f.input :description, as: :text %>
+      <div class="form-group row string required">
+        <%= f.association :category, wrapper: false, grid_wrapper_html: { class: 'col-sm-3' } %>
+        <%= f.association :producer, wrapper: false, grid_wrapper_html: { class: 'col-sm-3' } %>
+      </div>
+      <div class="form-group row string required">
+        <%= f.association :family,  wrapper: false, grid_wrapper_html: { class: 'col-sm-3' }  %>
+      </div>
+      <legend class="form-section">
+        <i class="fa fa-archive"></i> <%= t('.section.product_detail') %>
+      </legend>
+      <%= f.input :ac, label: false, wrapper: :horizontal_boolean, grid_wrapper_html: { class: '' }, form_check_wrapper_html: { class: 'form-check-no-padd' } do %>
+        <%= f.input_field :ac, as: :hidden %>
+        <label class="switch switch-label switch-pill switch-primary">
+          <%= f.input_field :ac, class: 'switch-input' %>
+          <span class="switch-slider" data-checked="<%= t('boolean.byes') %>" data-unchecked="<%= t('boolean.bno') %>"></span>
+        </label>
+      <% end %>
+      <div class="form-group row string required">
+        <%= f.input :power_in, wrapper: false, grid_wrapper_html: { class: 'col-sm-3' } %>
+        <%= f.input :power_out, wrapper: false, grid_wrapper_html: { class: 'col-sm-3' } %>
+      </div>
+      <%= f.input :poe %>
+      <legend class="form-section">
+        <i class="fa fa-clock"></i> <%= t('.section.stock') %>
+      </legend>
+      <div class="form-group row string required">
+        <%= f.input :stock_min_default, wrapper: false, grid_wrapper_html: { class: 'col-sm-3' }, input_html: { class: 'mask-numeric', value: 10, maxlength: 6 } %>
+        <%= f.input :reorder_point_default, wrapper: false, grid_wrapper_html: { class: 'col-sm-3' }, input_html: { class: 'mask-numeric', value: 5, maxlength: 6 } %>
+      </div>
+      <div class="form-group row string required">
+        <%= f.input :unit, wrapper: false, grid_wrapper_html: { class: 'col-sm-3' }, include_blank: false %>
+      </div>
+
+    </div>
+
+    <div class="card-footer">
+      <div class="float-right">
+        <%= link_to t('.cancel'), products_products_path, class: 'btn btn-secondary' %>
+        <%= f.button :submit, t('.submit'), class: 'btn btn-primary' %>
+      </div>
+    </div>
+  </div>
+<% end %> 

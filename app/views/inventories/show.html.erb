@@ -1,0 +1,101 @@
+<div class="card">
+  <div class="card-header data-header">
+    <div class="title">
+      <%= t('.header')%>
+    </div>
+  </div>
+  
+  <div class="card-body">
+    <legend class="form-section">
+      <i class=""></i> <%= t('.section.product') %>
+    </legend>
+
+    <div class="form-group row string">
+      <label class="col-sm-3 text-muted">N° de Producto / Código de Barras: </label>
+      <div class="col-sm-3"><%= @inventory.product.product_number %></div>
+      <label class="col-sm-3 text-muted">Modelo / Fabricante / Familia: </label>
+      <div class="col-sm-3"><%= "#{[@inventory.product.name, @inventory.product.producer.name,  @inventory.product.family.name].compact.join(" / ") }" %></div>
+    </div>
+
+    <div class="form-group row string">
+      <label class="col-sm-3 text-muted">Descripción: </label>
+      <div class="col-sm-9 "><%= @inventory.product.description %></div>
+    </div>
+
+    <div class="form-group row string">
+      <label class="col-sm-2 text-muted">Corriente alterna: </label>
+      <div class="col-sm-2"><%= @inventory.product.ac %></div>
+      <label class="col-sm-2 text-muted">Potencia de entrada: </label>
+      <div class="col-sm-2"><%= @inventory.product.power_in %></div>
+      <label class="col-sm-2 text-muted">Potencia de salida: </label>
+      <div class="col-sm-2"><%= @inventory.product.power_out %></div>
+    </div>
+
+    <legend class="form-section">
+      <i class=""></i> <%= t('.section.particular_product') %>
+    </legend>
+
+    <div class="form-group row string">
+      <label class="col-sm-2 text-muted">Inventario Id: </label>
+      <div class="col-sm-4"><%= @inventory.id %></div>
+    </div>
+
+    <div class="form-group row string">
+      <label class="col-sm-2 text-muted">Depósito: </label>
+      <div class="col-sm-4"><%= "#{[@inventory.deposit.name, @inventory.deposit.address].compact.join(", ")} - (#{@inventory.deposit.city.name}, #{@inventory.deposit.province.name}, #{@inventory.deposit.country.name})" %></div>
+      <label class="col-sm-3 text-muted">Proveedor: </label>
+      <div class="col-sm-3"><%= @inventory.provider.name %></div>
+    </div>
+
+    <div class="form-group row string">
+      <label class="col-sm-2 text-muted">N° Serial: </label>
+      <div class="col-sm-2"><%= @inventory.serial_number %></div>
+      <label class="col-sm-2 text-muted">Dirección MAC: </label>
+      <div class="col-sm-2"><%= @inventory.mac_address %></div>
+      <label class="col-sm-2 text-muted">Firmware: </label>
+      <div class="col-sm-2"><%= @inventory.firmware_version %></div>
+    </div>
+  </div>
+
+  <%# Movimiento entre depósitos - Historial %>
+  <div class="card-body">
+    <div class="card-header data-header">
+      <div class="title">
+        <%= t('.header_move_details')%>
+      </div>
+    </div>
+    <table class="table table-responsive-sm table-striped table-hover table-sm table-maxwell-data">
+      <thead> 
+        <tr>
+          <th>Depósito Origen</th>
+          <th>Depósito Destino</th>
+          <th>Usuario Emisor</th>
+          <th>Usuario Receptor</th>
+          <th>Fecha de Envío</th>
+          <th>Fecha de Creación</th>
+          <th>Comprobante</th>
+          <th>Estado</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @move_details.each do |md| %>
+          <tr>
+            <td><%= md.site_from.name %></td>
+            <td><%= md.site_to.name %></td>
+            <td><%= [md.move.user_register.lastname, md.move.user_register.firstname].compact.join(", ") %></td>
+            <td><%= [md.move.user_take.lastname, md.move.user_take.firstname].compact.join(", ") %></td>
+            <td><%= I18n.l(md.move.move_date.to_date, locale: :es, format: :long) %></td>
+            <td><%= I18n.l(md.move.created_at.to_datetime, locale: :es, format: :long) %></td>
+            <td><%= "#{md.move.voucher_number} (#{md.move.voucher_type.name})" %></td>
+            <td><%= md.move.status.split("_").map(&:capitalize).join(" ") %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  <div class="modal-footer">
+    <div class="float-right">
+      <%= link_to t('.close'), per_deposit_inventories_path(deposit_id: @inventory.deposit_id), class: 'btn btn-secondary' %>
+    </div>
+  </div>
+</div>

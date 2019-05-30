@@ -1,0 +1,46 @@
+es-AR:
+  elements:
+    deposits:
+      edit:
+        header: 'Editar Depósito'
+      form:
+        cancel: 'Cancelar'
+        section:
+          basic: 'Información básica'
+        submit: 'Guardar'
+      index:
+        header: 'Depósitos'
+        tooltip:
+          new: 'Nuevo depósito'
+          export: 'Exportar a Excel'
+        search_form:
+          deposit_type: 'Tipo de Deposito'
+          city: 'Ciudad'
+          deposit_name: 'Nombre Deposito'
+          reset: 'Limpiar Filtros'
+          tooltip:
+            submit: 'Buscar'
+      new:
+        header: 'Nuevo Depósito'
+      deposits_table:
+        delete_confirm: '¿Está seguro que desea eliminar este depósito?'
+        tooltip:
+          edit: 'Editar depósito'
+          delete: 'Eliminar depósito'
+      search:
+        find_deposit: 'Buscar'
+        modal:  
+          close: 'Cerrar'
+          title: 'Buscar depósito'
+        placeholder: 'Nombre del depósito, tipo o dirección...'
+        tooltip:
+          select: 'Seleccionar'
+      move:
+        modal:
+          close: 'Cerrar'
+          title: 'Nuevo Movimiento de Depósito'
+          submit: 'Guardar'
+      select:
+        modal:
+          close: 'Cerrar'
+          title: 'Seleccionar Movimiento de Depósito'

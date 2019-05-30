@@ -1,0 +1,56 @@
+<div id="alert-message">
+  <% if flash[:alert] %>
+    <div class="alert alert-success" role="alert">
+      <%= flash[:alert] %>
+    </div>
+  <% end %>
+</div>
+
+<table class="table table-responsive-sm table-striped table-hover table-sm table-maxwell-data">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Número de Producto</th>
+      <th>Modelo / Nombre</th>
+      <th>Familia</th>
+      <th>Fabricante</th>
+      <th>Stock</th>
+      <th>Unidad de Medida</th>
+      <th class="action-column"></th>
+    </tr>
+  </thead>
+ 
+  <tbody>
+    <% @inventories.each_with_index do |inv, index| %>
+      <tr>
+        <td><%= @inventories.offset_value + index + 1 %></td>
+        <td><%= inv.product.product_number %></td>
+        <td><%= inv.product.name %></td>
+        <td><%= inv.product.family.name %></td>
+        <td><%= inv.product.producer.name %></td>
+        <td><%= inv.stock_count(inv) %></td>
+        <td><%= inv.product.unit %></td>
+
+        <td class="action-buttons">
+          <%= link_to deposit_stock_inventories_path(product_id: inv.product_id), class: 'btn btn-sm btn-outline-success', data: { toggle: 'tooltip', title: t('.tooltip.show') } do %>
+            <i class="fa fa-eye"></i>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+
+  <tfoot>
+    <tr>
+      <td class="page-entries-info" colspan="8"></td>
+    </tr>
+  </tfoot>
+</table>
+
+
+<%= search_form_for @q, url: download_product_inventories_path, id: 'export_form' do |f| %>
+  <%= f.hidden_field :product_family_id_eq %>
+  <%= f.hidden_field :product_producer_id_eq %>
+  <%= f.hidden_field :product_name_or_product_product_number_cont %>
+<% end %>  
+

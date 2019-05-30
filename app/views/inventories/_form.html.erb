@@ -1,0 +1,174 @@
+<% if @inventory.errors[:base].any? %>
+  <div class="alert alert-danger">
+    <strong><%= t('common.attention_alert') %></strong> <%= @inventory.errors[:base].first %>
+  </div>
+<% end %>
+
+<%= simple_form_for @inventory, wrapper: :maxwell_horizontal_form, defaults: { grid_wrapper_html: {class: 'col-sm-9 ' } } do |f| %>
+  <div class="card">
+    <div class="card-header"><%= header %></div>
+
+    <div class="card-body">
+      <legend class="form-section">
+        <i class=""></i> <%= t('.section.product') %>
+      </legend>
+
+      <%= f.input :product do %>
+        <div data-controller="product-search" data-product-search-url="<%= search_products_products_path %>" class="input-group">
+          <%= f.input_field :product, class: 'form-control normal', readonly: true, value: product_label(f.object.product), name: '' %>
+          <%= f.hidden_field :product_id %>
+          <div>
+            <button class="btn btn-primary" type="button" data-action="product-search#show" data-togle="tooltip" data-trigger="hover" title="<%= t('.find_product') %>">
+              <i class="fa fa-search"></i>
+            </button>
+          </div>
+          <%= f.full_error :product, class: 'invalid-feedback' %>
+        </div>
+      <% end %>
+
+      <% if !@inventory.persisted? %>
+        <div class="form-group row string required">
+          <%= f.input :product_quantity, as: :string, wrapper: false, grid_wrapper_html: { class: 'col-sm-3' }, input_html: { class: 'mask-numeric', value: 1, maxlength: 6 } %>
+        </div>
+      <% end %>
+
+      <%= f.input :provider do %>
+        <div data-controller="provider-search" data-provider-search-url="<%= search_elements_providers_path %>" class="input-group">
+          <%= f.input_field :provider, class: 'form-control normal', readonly: true, value: provider_label(f.object.provider), name: '' %>
+          <%= f.hidden_field :provider_id %>
+          <div>
+            <button class="btn btn-primary" type="button" data-action="provider-search#show" data-togle="tooltip" data-trigger="hover" title="<%= t('.find_provider') %>">
+              <i class="fa fa-search"></i>
+            </button>
+          </div>
+          <%= f.full_error :provider, class: 'invalid-feedback' %>
+        </div>
+      <% end %>
+
+      <div class="form-group row string required">
+        <% if @inventory.persisted? && (@inventory.status == :en_movimiento || @inventory.status == :en_transito) %>
+          <%= f.input :status, wrapper: false, grid_wrapper_html: { class: 'col-sm-3' }, disabled: true  %>
+          <div class="col-sm-6">
+            <small class="text-muted"><%= t('.status_not_editable') %></small>
+          </div>
+        <% elsif @inventory.persisted? %>
+          <%= f.input :status, wrapper: false, grid_wrapper_html: { class: 'col-sm-3' }, :disabled => [:en_movimiento, :en_transito] %>
+        <% end %>
+
+        <div class="col-sm-6">
+          <%#  %>
+                           
+            <p>
+              <a class="btn btn-outline-primary" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample"
+               data-placement="top" title="Información">
+                <i class="fa fa-question"></i>
+              </a>
+            </p>
+            <div class="collapse" id="collapseExample">
+              <div class="card card-body">
+                <p>
+                  <span class="badge badge-success">Disponible</span>
+                  Producto disponible para manipulación (eliminar, mover, vender).
+                </p>
+                <p>
+                  <span class="badge badge-warning">En movimiento</span>
+                  Producto en carga como detalle de un movimiento entre depósitos.
+                </p>
+                <p>
+                  <span class="badge badge-danger">Eliminado</span>
+                  Producto eliminado.   
+                </p>
+                <p>
+                  <span class="badge badge-info">En transito</span>
+                  Producto en tránsito a depósito destino.
+                </p>
+                <p>
+                  <span class="badge badge-danger">Vendido</span>
+                  Producto vendido.
+                </p>
+              </div>
+            </div>
+                 
+          <%#  %>
+        </div>
+      </div>
+
+      <legend class="form-section">
+        <i class=""></i> <%= t('.section.deposit') %>
+      </legend>
+
+      <%= f.input :deposit do %>
+        <div data-controller="deposit-search" data-deposit-search-url="<%= search_elements_deposits_path %>" class="input-group">
+          <%= f.input_field :deposit, class: 'form-control normal', readonly: true, value: deposit_label(f.object.deposit), name: '' %>
+          <%= f.hidden_field :deposit_id %>
+          <div>
+            <button class="btn btn-primary" type="button" data-action="deposit-search#show" data-togle="tooltip" data-trigger="hover" title="<%= t('.find_deposit') %>">
+              <i class="fa fa-search"></i>
+            </button>
+          </div>
+          <%= f.full_error :deposit, class: 'invalid-feedback' %>
+        </div>
+      <% end %>
+
+      <% if @inventory.persisted? %>
+        <legend class="form-section">
+          <i class=""></i> <%= t('.section.particular_product') %>
+        </legend>
+
+        <div class="form-group row string required">
+          <%= f.input :mac_address, wrapper: false, grid_wrapper_html: { class: 'col-sm-9' } do %>
+            <div class="input-group">
+              <%= f.input_field :mac_address, as: :string, class: 'form-control' %>
+            </div>
+          <% end %>
+        </div>
+
+        <div class="form-group row string required">
+          <%= f.input :serial_number, wrapper: false, grid_wrapper_html: { class: 'col-sm-9' } do %>
+            <div class="input-group">
+              <%= f.input_field :serial_number, as: :string, class: 'form-control' %>
+            </div>
+          <% end %>
+        </div>
+
+        <div class="form-group row string required">
+          <%= f.input :firmware_version, wrapper: false, grid_wrapper_html: { class: 'col-sm-9' } do %>
+            <div class="input-group">
+              <%= f.input_field :firmware_version, as: :string, class: 'form-control' %>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+
+    </div>
+
+    <div class="card-footer">
+      <div class="float-right">
+        <%= link_to t('.cancel'), inventories_path, class: 'btn btn-secondary' %>
+        <%= f.button :submit, t('.submit'), class: 'btn btn-primary' %>
+      </div>
+    </div>
+
+  </div>
+<% end %>
+
+<%# Modal Producto %>
+<div id="product-search-modal" class="modal" tabindex="-1" role="dialog">
+</div>
+
+<input id="product-search-id-target" type="hidden" value="inventory_product_id">
+<input id="product-search-label-target" type="hidden" value="inventory_product">
+
+<%# Modal Proveedor %>
+<div id="provider-search-modal" class="modal" tabindex="-1" role="dialog">
+</div>
+
+<input id="provider-search-id-target" type="hidden" value="inventory_provider_id">
+<input id="provider-search-label-target" type="hidden" value="inventory_provider">
+
+<%# Modal Depósito %>
+<div id="deposit-search-modal" class="modal" tabindex="-1" role="dialog">
+</div>
+
+<input id="deposit-search-id-target" type="hidden" value="inventory_deposit_id">
+<input id="deposit-search-label-target" type="hidden" value="inventory_deposit">

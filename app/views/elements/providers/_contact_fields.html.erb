@@ -1,0 +1,26 @@
+
+<fieldset>
+  <div class="container">
+        <div class="form-group row string required">
+            <%= f.input :name, wrapper: false, grid_wrapper_html: { class: 'col-sm-6' }%>
+        </div>
+        
+        <div class="form-group row string required">
+            <%= f.input :phone, wrapper: false, grid_wrapper_html: { class: 'col-sm-3' } %>
+            <%= f.association :telephone_type, wrapper: false, grid_wrapper_html: { class: 'col-sm-3' } %>
+  
+        </div>
+        <div class="row">
+        <div data-action="click->provider#deleteContact" >
+              <%= f.hidden_field :_destroy %>
+             <%= link_to( t('.deletePhone'),'#', class: 'remove_fields btn btn-block btn-danger')  %>
+        </div>
+        
+        </div>
+        <hr>
+    </div>
+</fieldset>
+
+ 
+
+

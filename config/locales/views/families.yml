@@ -1,0 +1,21 @@
+es-AR:
+  products:
+    families:
+      edit:
+        header: 'Editar Familia'
+      form:
+        cancel: 'Cancelar'
+        section:
+          basic: 'Información básica'
+        submit: 'Guardar'
+      index:
+        header: 'Familias'
+        tooltip:
+          new: 'Nueva familia'
+      new:
+        header: 'Nueva Familia'
+      families_table:
+        delete_confirm: '¿Está seguro que desea eliminar esta familia?'
+        tooltip:
+          edit: 'Editar familia'
+          delete: 'Eliminar familia'

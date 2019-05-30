@@ -1,0 +1,108 @@
+<div class="card">
+  <div class="card-header data-header">
+    <div class="title">
+      <%= t('.header') %>
+      <% if current_user.group.organization %>
+        <sub> (<%= current_user.group.organization.name %>)</sub>
+      <% end %>
+    </div>
+    <div data-controller="deposit-move">
+      <button type="button" class="btn btn-sm btn-primary" data-action="deposit-move#select" data-togle="tooltip" data-trigger="hover" id="#select-deposit-move-button">Movimiento entre depósitos</button>
+    </div>
+  </div>
+
+  <div class="card-body text-white bg-dark">
+    <h5><%= "#{[@deposit.name, @deposit.deposit_type.name].reject(&:empty?).join(" - ")}" %></h5>
+    <h6><%= @deposit.description %></h6>
+    <h6><%= "#{@deposit.address} (#{[@deposit.city.name, @deposit.province.name, @deposit.country.name].compact.join(", ")})" %></h6>
+    <small class="text-muted">Última actualización: <%= I18n.l(@deposit.updated_at.to_date, locale: :es, format: :long) %></small>
+  </div>
+    <div class="card-body ">
+        <%# --- filtro  ---%>
+        <%= search_form_for @q, url: per_deposit_inventories_path, remote: true do |f| %>
+        <div class="row">
+              <div class="col-sm-5">
+                <%= f.input :product_name_cont, label: t('.search_form.product_name')  %>
+              </div>
+              <div class="col-sm-5">
+                <%= f.input :product_product_number_cont, label: t('.search_form.product_number') do %>
+                  <div class="input-group">
+                    <%= f.input_field :product_product_number_cont, as: :string, class: 'form-control' %>
+                    <div class="input-group-append">
+                      <button class="btn btn-primary" type="submit" data-toggle="tooltip" data-trigger="hover" title="<%= t('.search_form.tooltip.submit') %>">
+                        <i class="fa fa-search"></i>
+                      </button>&nbsp;&nbsp;
+                      <%= link_to '<button class="btn btn-warning"><i class="fa fa-refresh"></i></button>'.html_safe, request.path, remote: true,  title: t('.search_form.reset'), class:'reset-filter' %>
+                    </div>
+                  </div>
+                <% end %>
+              </div>
+        </div>
+        <% end %>
+  </div>
+  <div class="row">
+    <div class="col-sm-11">
+      <% if can? :download_deposit_product, Inventory %>
+      <button type="submit" form="export_form" class="btn btn-sm btn-success  float-right margLefRig" data-toggle="tooltip" data-trigger="hover" data-title="<%= t('.tooltip.export') %>">
+      <i class="fa fa-table"></i>
+      </button> 
+      <% end %>
+
+            <p>
+              <a class="btn btn-sm btn-outline-primary float-right margLefRig" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample"
+               data-placement="top" title="Información">
+                <i class="fa fa-question"></i>
+              </a>
+            </p>
+            <div class="collapse" id="collapseExample">
+              <div class="card card-body">
+                <p>
+                  <span class="badge badge-success">Disponible</span>
+                  Producto disponible para manipulación (eliminar, mover, vender).
+                </p>
+                <p>
+                  <span class="badge badge-warning">En movimiento</span>
+                  Producto en carga como detalle de un movimiento entre depósitos.
+                </p>
+                <p>
+                  <span class="badge badge-danger">Eliminado</span>
+                  Producto eliminado.   
+                </p>
+                <p>
+                  <span class="badge badge-info">En transito</span>
+                  Producto en tránsito a depósito destino.
+                </p>
+                <p>
+                  <span class="badge badge-danger">Vendido</span>
+                  Producto vendido.
+                </p>
+              </div>
+            </div>
+
+        </div>
+  </div>
+  <div class="card-body">
+    <div id="inventories-table-container">
+      <%= render 'inventories_deposit_detail_table' %>
+    </div>
+  </div>
+
+  <div class="card-footer">
+    <div class="float-right">
+      <%= link_to t('.back'), inventories_path, class: 'btn btn-secondary' %>
+    </div>
+  </div>
+</div>
+
+<%# Modal Nuevo Movimiento de Depósito %>
+<div id="deposit-move-modal" class="modal" tabindex="-1" role="dialog">
+</div>
+
+
+<%# Modal Seleccionar Movimiento de Depósito En Carga %>
+<div id="select-deposit-move-modal" class="modal" tabindex="-1" role="dialog">
+</div>
+
+<input id="deposit-move-id-target" type="hidden" value="deposit_move_id">
+<input id="deposit-move-label-target" type="hidden" value="deposit_move">
+

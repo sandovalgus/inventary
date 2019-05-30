@@ -1,0 +1,29 @@
+<%= content_for :header_tabs do %>
+  <nav class="nav nav-pills flex-column flex-sm-row">
+    <%= link_to t('common.nav.products.categories'), products_categories_path, class: 'flex-sm-fill text-sm-center nav-link' %>
+    <%= link_to t('common.nav.products.producers'), products_producers_path, class: 'flex-sm-fill text-sm-center nav-link' %>
+    <%= link_to t('common.nav.products.families'), products_families_path, class: 'flex-sm-fill text-sm-center nav-link ' %>
+    <%= link_to t('common.nav.products.products'), products_products_path, class: 'flex-sm-fill text-sm-center nav-link' %>
+    <%= link_to t('common.nav.products.product_types'), products_product_types_path, class: 'flex-sm-fill text-sm-center nav-link active' %>
+  </nav>
+<% end %>
+
+<div class="card">
+  <div class="card-header data-header">
+    <div class="title"><%= t('.header') %></div>
+
+    <div>
+      <% if can? :create, ProductType %>
+        <%= link_to new_products_product_type_path, class: 'btn btn-sm btn-primary', data: { toggle: 'tooltip', title: t('.tooltip.new') } do %>
+          <i class="fa fa-plus"></i>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="card-body">
+    <div id="product-type-table-container">
+      <%= render 'product_types_table' %>
+    </div>
+  </div>
+</div>

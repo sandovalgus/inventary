@@ -1,0 +1,29 @@
+es-AR:
+  taxes:
+    tax_categories:
+      edit:
+        header: 'Editar Categoría'
+      form:
+        cancel: 'Cancelar'
+        section:
+          tax: 'Información básica'
+        action:
+          addPhone: 'Agregar Teléfono'
+          addAddress: 'Agregar Dirección'
+        submit: 'Guardar'
+      index:
+        header: 'Categorías ante el IVA'
+        tooltip:
+          new: 'Nueva Categoría'
+      new:
+        header: 'Nueva Categoría'
+      tax_categories_table:
+        delete_confirm: '¿Está seguro que desea eliminar esta Categoría?' 
+        tooltip:
+          edit: 'Editar Categoría'
+          delete: 'Eliminar Categoría'
+      contact_fields:
+        deletePhone: 'Eliminar Impuesto'
+      address_fields:
+        deleteAddress: 'Eliminar Impuesto'
+  

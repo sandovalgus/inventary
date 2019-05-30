@@ -1,0 +1,27 @@
+<%= content_for :header_tabs do %>
+  <nav class="nav nav-pills flex-column flex-sm-row">
+    <%= link_to t('common.nav.taxes.tax_categories'), taxes_tax_categories_path, class: 'flex-sm-fill text-sm-center nav-link ' %>
+    <%= link_to t('common.nav.taxes.withholding_taxes'), taxes_withholding_taxes_path, class: 'flex-sm-fill text-sm-center nav-link active' %>
+    <%= link_to t('common.nav.taxes.voucher_types'), taxes_voucher_types_path, class: 'flex-sm-fill text-sm-center nav-link' %>
+  </nav>
+<% end %>
+
+<div class="card">
+  <div class="card-header data-header">
+    <div class="title"><%= t('.header') %></div>
+
+    <div>
+      <% if can? :create, WithholdingTax %>
+        <%= link_to new_taxes_withholding_tax_path, class: 'btn btn-sm btn-primary', data: { toggle: 'tooltip', title: t('.tooltip.new') } do %>
+          <i class="fa fa-plus"></i>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="card-body">
+    <div id="withholding-taxes-table-container">
+      <%= render 'withholding_taxes_table' %>
+    </div>
+  </div>
+</div>

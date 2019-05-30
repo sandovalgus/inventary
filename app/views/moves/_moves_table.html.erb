@@ -1,0 +1,71 @@
+<div id="alert-message">
+  <% if flash[:alert] %>
+    <div class="alert alert-success" role="alert">
+      <%= flash[:alert] %>
+    </div>
+  <% end %>
+</div>
+
+<table class="table table-responsive-sm table-striped table-hover table-sm table-maxwell-data">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Depósito Origen</th>
+      <th>Depósito Destino</th>
+      <th>Comprobante</th>  
+      <th>Fecha de Creación</th>
+      <th>Fecha de Envío</th>
+      <th>Usuario Emisor</th>  
+      <th>Usuario Receptor</th>  
+      <th>Estado</th>  
+      <th class="action-column"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @moves.each do |move| %>
+      <tr>
+        <td></td>
+        <td><%= "#{move.move_details.last.site_from.name} - #{move.move_details.last.site_to.city.name}, #{move.move_details.last.site_to.province.name}" %></td>
+        <td><%= "#{move.move_details.last.site_to.name} - #{move.move_details.last.site_to.city.name}, #{move.move_details.last.site_to.province.name}" %></td>
+        <td><%= "#{move.voucher_number} (#{move.voucher_type.name})" %></td>
+        <td><%= I18n.l(move.created_at.to_datetime, locale: :es, format: :short) %></td>
+        <td><%= I18n.l(move.move_date.to_date, locale: :es, format: :long) %></td>
+         <td><%= "#{move.user_register.firstname}, #{move.user_register.lastname}" %></td>
+        <td><%= "#{move.user_take.firstname}, #{move.user_take.lastname}" %></td>
+        <td>
+          <% if(move.status == :en_carga) %>
+            <b class="text-warning"><%= move.status.split("_").map(&:capitalize).join(" ") %></b>
+          <% elsif(move.status == :retrasado || move.status == :eliminado || move.status == :en_espera) %>
+            <b class="text-danger"><%= move.status.split("_").map(&:capitalize).join(" ") %></b>
+          <% elsif(move.status == :en_transito) %>
+            <b class="text-info"><%= move.status.split("_").map(&:capitalize).join(" ") %></b>
+          <% elsif(move.status == :recibido) %>
+            <b class="text-success"><%= move.status.split("_").map(&:capitalize).join(" ") %></b>
+          <% end %>
+        </td>
+        <td class="action-buttons">
+          <% if can? :update, move %>
+            <% if (move.status != 'eliminado' && move.status != 'recibido') %>
+              <%= link_to edit_move_path(move), class: 'btn btn-sm btn-outline-primary', data: { toggle: 'tooltip', title: t('.tooltip.edit') } do %>
+                <i class="fa fa-pencil"></i>
+              <% end %>
+            <% end %>
+          <% end %>
+          <%= link_to move_path(move), class: 'btn btn-sm btn-outline-primary', data: { toggle: 'tooltip', title: t('.tooltip.show') } do %>
+            <i class="fa fa-eye"></i>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= search_form_for @q, url: download_moves_path, id: 'export_form' do |f| %>
+  <%= f.hidden_field :move_date_lteq %>
+  <%= f.hidden_field :move_date_lteq %>
+  <%= f.hidden_field :voucher_type_id_eq %>
+  <%= f.hidden_field :user_register_id_eq %>
+  <%= f.hidden_field :user_take_id_eq %>
+  <%= f.hidden_field :move_details_site_to_id_eq %>
+  <%= f.hidden_field :voucher_number_cont %>
+<% end %>  

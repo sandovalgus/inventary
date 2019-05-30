@@ -1,0 +1,74 @@
+es-AR:
+  inventories:
+    form:
+      cancel: 'Cancelar'
+      section: &form_sections
+        deposit: 'Lugar en el que se encuentra'
+        particular_product: 'Datos del producto en particular'
+        product: 'Datos del producto'
+        provider: 'Proveedor'
+      submit: 'Guardar'
+      find_product: 'Buscar producto'
+      find_deposit: 'Buscar depósito'
+      find_provider: 'Buscar proveedor'
+      status_not_editable: 'Este producto se encuentra en el detalle de un movimiento entre depósitos, debe finalizar el movimiento de depósito o eliminar este registro del detalle de movimiento, para poder editarlo desde aquí.'
+    index:
+      header: 'Inventario'
+      tooltip:
+        new: 'Nuevo Registro'
+        export: 'Exportar a Excel'
+      search_form:
+          product_name: 'Nombre - Serie Producto'
+          reset: 'Limpiar Filtros'
+          deposit: 'Deposito'
+          family: 'Familia'
+          producer: 'Fabricante'
+          deposit_type: 'Tipo depósito'
+          deposit_name: 'Depósito'
+          inventory_per_deposit: 'Ver inventario por depósito'
+          tooltip:
+            submit: 'Buscar'
+    new:
+      form:
+        new_header: 'Registrar Producto En Inventario'
+    show:
+      close: 'Cerrar'
+      header: 'Registro En Inventario'
+      header_move_details: 'Historial de Movimientos Entre Depósitos'
+      section: &form_sections
+        deposit: 'Lugar en el que se encuentra'
+        particular_product: 'Datos del producto en particular'
+        product: 'Datos del producto'
+        provider: 'Proveedor'
+    edit:
+      form:
+        edit_header: 'Editar Registro en Inventario'
+    inventories_table: 
+      tooltip:
+        show: 'Ver depósitos'
+    inventories_detail_table: 
+      tooltip:
+        delete: 'Eliminar'
+        edit: 'Editar'
+        show: 'Ver detalles'
+    inventories_deposit_table:
+      tooltip:
+        show: 'Ver productos'
+    inventories_deposit_detail_table:
+      tooltip:
+        edit: 'Editar'
+        show: 'Ver detalles'
+    deposit_stock:
+      header: 'Detalle Inventario'
+      back: 'Atrás'
+    per_deposit:
+      header: 'Inventario por depósito'
+      back: 'Atrás'
+      tooltip:
+        export: 'Exportar a Excel'
+      search_form:
+        product_number: 'Número de Producto' 
+        product_name: 'Nombre Producto'
+        reset: 'Limpiar Filtros'
+        tooltip:
+          submit: 'Buscar'

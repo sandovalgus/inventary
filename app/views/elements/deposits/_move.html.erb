@@ -1,0 +1,136 @@
+<div class="modal-dialog modal-lg" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title">
+        <%= t('.modal.title') %>
+      </h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="<%= t('.modal.close') %>">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    
+    <div class="modal-body">
+      <% if (checkForRepeatedValues(@inventories)) %>
+        <div class="card">
+          <div class="card-body text-white bg-dark">
+            <h5><%= "#{@inventory.product.producer.name} (#{@inventory.product.family.name})"%></h5>
+            <h6><%= @inventory.product.name.upcase %></h6>
+            <button data-toggle="collapse" data-target="#show-product-description">Descripción</button>
+            <div id="show-product-description" class="collapse"><h6><%= @inventory.product.description %></h6></div>
+          </div>
+      
+          <table id="deposit-move-table" class="table table-responsive-sm table-striped table-hover table-sm table-maxwell-data">
+            <thead> 
+              <tr>
+                <th>Inventario Id</th>
+                <th>N° Serial</th>
+                <th>Proveedor</th>
+                <th>Depósito</th>
+                <th>Dirección</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <% @inventories.each_with_index do |c, index| %>
+                <tr>
+                  <td><%= c.id %></td>
+                  <td><%= c.serial_number %></td>
+                  <td><%= c.provider.name %></td>
+                  <td><%= "#{c.deposit.name} (#{c.deposit.deposit_type.name})" %></td>
+                  <td><%= c.deposit.address %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div> <%# class="card" %> 
+      <% else %>
+        <div class="card">
+          <table id="deposit-move-table" class="table table-responsive-sm table-striped table-hover table-sm table-maxwell-data">
+            <thead> 
+              <tr>
+                <th>Número de Producto</th>
+                <th>Producto/Modelo/Familia</th>
+                <th>Fabricante</th>
+                <th>Categoria</th>
+                <th>N° Serial</th>
+                <th>Proveedor</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <% @inventories.each_with_index do |c, index| %>
+                <tr>
+                  <td><%= c.product.product_number %></td>
+                  <td><%= "#{[c.product.name, c.product.family.name].compact.join(" - ")}" %></td>
+                  <td><%= c.product.producer.name %></td>
+                  <td><%= c.product.category.name %></td>
+                  <td><%= c.serial_number %></td>
+                  <td><%= c.provider.name %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      <% end %>
+      <div>
+        <%# Formulario de movimiento entre depósitos %>
+        <%= simple_form_for @move, :url => create_move_elements_deposits_path(@move), wrapper: :maxwell_horizontal_form, defaults: { grid_wrapper_html: { class: 'col-sm-9' } } do |f| %>
+          <legend class="form-section">
+            <i class="fa fa-truck fa-lg mt-4"></i> Seleccione el depósito destino
+          </legend>
+          <%# Buscar y seleccionar depósito %>
+          <%= f.simple_fields_for :move_details do |md| %>
+            <%= md.association :site_to, include_blank: false %>
+          <% end %>
+
+          <div class="form-group row string required">
+            <%= f.input :move_date, as: :string, wrapper: false, grid_wrapper_html: { class: 'col-sm-3' } do %>
+              <div class="input-group date">
+                <%= f.input_field :move_date, as: :string, class: 'form-control mask-date align-right', placeholder: 'dd/mm/aaaa', value: short_date(f.object.move_date.utc) %>
+                <div class="input-group-append input-group-addon">
+                  <span class="input-group-text">
+                    <i class="fa fa-calendar"></i>
+                  </span>
+                </div>
+                <%= f.full_error :move_date, class: 'invalid-feedback' %>
+              </div>
+            <% end %>
+          </div>
+
+          <legend class="form-section">
+            <i class="fa fa-user"></i> Usuarios involucrados
+          </legend>
+          <div class="form-group row string required">
+            <%= f.association :user_register, wrapper: false, grid_wrapper_html: { class: 'col-sm-3' }, include_blank: false %>
+            <%= f.association :user_take, wrapper: false, grid_wrapper_html: { class: 'col-sm-3' }, include_blank: false %>
+          </div>
+
+          <legend class="form-section">
+            <i class="fa fa-paperclip"></i> Comprobante asociado
+          </legend>
+          <div class="form-group row string required">
+            <%= f.association :voucher_type, wrapper: false, grid_wrapper_html: { class: 'col-sm-3' }, include_blank: false %>
+            <%= f.input :voucher_number, wrapper: false, grid_wrapper_html: { class: 'col-sm-3' }, input_html: { class: 'mask-numeric', maxlength: 6, value: 0 }  %>
+          </div>
+
+          <div class="modal-footer">
+            <div class="float-right">
+              <button class="btn btn-secondary" data-dismiss="modal"><%= t('.modal.close') %></button>
+              <%= f.button :submit, t('.modal.submit'), class: 'btn btn-primary' %>
+            </div>
+          </div>
+
+        <% end %>
+      </div>
+    </div> <%# class="modal-body" %>
+
+  </div>
+</div>
+
+
+<%# Modal Depósito %>
+<div id="deposit-search-modal" class="modal" tabindex="-1" role="dialog">
+</div>
+
+<input id="deposit-search-id-target" type="hidden" value="inventory_deposit_id">
+<input id="deposit-search-label-target" type="hidden" value="inventory_deposit">

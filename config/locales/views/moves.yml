@@ -1,0 +1,33 @@
+es-AR:
+  moves:
+    index:
+      header: 'Movimientos de Depósito'
+      tooltip:
+        export: 'Exportar a Excel'
+      search_form:
+        reset: 'Limpiar Filtros'
+        voucher_name: 'Num. comprobante'
+        voucher_type: 'Tipo de comprobante'
+        move_date: 'Periodo de envio'
+        user_register: 'Usuario Emisor'
+        user_take: 'Usuario Receptor'
+        site_to_id: 'Deposito Destino'
+        deposit_name: 'Depósito'
+        tooltip:
+          submit: 'Buscar'
+    moves_table:
+        tooltip:
+          edit: 'Editar'
+          show: 'Ver'
+    edit:
+      header: 'Editar Movimiento de Depósito'
+      header_detail: 'Detalle del Movimiento' 
+      cancel: 'Cancelar'
+      submit: 'Guardar'
+      status_help: '¡Atención! Si cambia el estado del movimiento a eliminado/recibido, los productos en el detalle cambiarán su estado a disponible, no es posible deshacer esta acción.'
+      detail_table:
+        destroy_item: 'Eliminar'
+    show:
+      header: 'Movimiento de Depósito'
+      header_detail: 'Detalle del Movimiento'
+      cancel: 'Cancelar'

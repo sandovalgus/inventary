@@ -1,0 +1,77 @@
+<div id="alert-message">
+  <% if flash[:alert] %>
+    <div class="alert alert-success" role="alert">
+      <%= flash[:alert] %>
+    </div>
+  <% end %>
+</div>
+
+<table class="table table-responsive-sm table-striped table-hover table-sm table-maxwell-data">
+  <thead>
+    <tr>
+      <th class="number-column">#</th>
+      <th><%= sort_link(@q, :product_number, {}, remote: true) %></th>
+      <th><%= sort_link(@q, :name, {}, remote: true) %></th> 
+      <th><%= sort_link(@q, :product_type_name, {}, remote: true) %></th> 
+      <th><%= sort_link(@q, :category_name, {}, remote: true) %></th>
+      <th><%= sort_link(@q, :producer_name, {}, remote: true) %></th>
+      <th><%= sort_link(@q, :family_name, {}, remote: true) %></th>
+      <th><%# sort_link(@q, :stock_min_default, {}, remote: true) %></th>
+      <th><%# sort_link(@q, :reorder_point_default, {}, remote: true) %></th>
+
+      <th class="action-column"></th>
+    </tr>
+  </thead> 
+
+  <tbody>
+    <% @products.each_with_index do |c, index| %>
+      <tr>
+        <td><%= @products.offset_value + index + 1 %></td>
+        <td><%= c.product_number %></td>
+        <td><%= c.name %></td>
+        <td><%= c.product_type.name %></td>
+        <td><%= c.category.name %></td>
+        <td><%= c.producer.name %></td>
+        <td><%= c.family.name %></td>
+        <td><%# c.stock_min_default %></td>
+        <td><%# c.reorder_point_default %></td>
+
+
+        <td class="action-buttons">
+          <% if can? :update, c %>
+            <%= link_to edit_products_product_path(c), class: 'btn btn-sm btn-outline-primary', data: { toggle: 'tooltip', title: t('.tooltip.edit') } do %>
+              <i class="fa fa-pencil"></i>
+            <% end %>
+          <% end %>
+
+          <% if can? :manage, c %>
+            <%= link_to path_with_parameters(:products_product_path, c), remote: true, method: :delete, class: 'btn btn-sm btn-outline-danger', data: { toggle: 'tooltip', trigger: 'hover', title: t('.tooltip.delete'), confirm: t('.delete_confirm') } do %>
+              <i class="fa fa-trash"></i>
+            <% end %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+ 
+  <tfoot>
+    <tr>
+      <td class="page-entries-info" colspan="11"><%= page_entries_info @products %></td>
+    </tr>
+
+    <% if @products.total_pages > 1 %>
+      <tr>
+        <td colspan="11">
+          <%= paginate @products, remote: true %>
+        </td>
+      </tr>
+    <% end %>
+  </tfoot>
+</table>
+  <%= search_form_for @q, url: download_products_products_path, id: 'export_form' do |f| %>
+  <%= f.hidden_field :product_number_or_name_cont %>
+  <%= f.hidden_field :category_id_eq %>
+  <%= f.hidden_field :product_type_id_eq %>
+  <%= f.hidden_field :family_id_eq %>
+  <%= f.hidden_field :producer_id_eq %>
+<% end %>  

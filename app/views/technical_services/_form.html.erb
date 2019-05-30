@@ -1,0 +1,181 @@
+<% if @technical_service.errors[:base].any? %>
+  <div class="alert alert-danger">
+    <strong><%= t('common.attention_alert') %></strong> <%= @technical_service.errors[:base].first %>
+  </div>
+<% end %>
+
+<%= simple_form_for @technical_service, wrapper: :maxwell_horizontal_form, defaults: { grid_wrapper_html: { class: 'col-sm-9' } } do |f| %>
+  <div class="card">
+    <div class="card-header"><%= header %></div>
+
+    <div class="card-body">
+      <legend class="form-section">
+        <i class="fa fa-user"></i> <%= t('.section.client') %>
+      </legend>
+
+      <%= f.input :client do %>
+        <div data-controller="client-search" data-client-search-url="<%= search_clients_path %>" class="input-group">
+          <%= f.input_field :client, class: 'form-control normal', readonly: true, value: client_label(f.object.client), name: '' %>
+          <%= f.hidden_field :client_id %>
+          <div class="input-group-append">
+            <button class="btn btn-primary" type="button" data-action="client-search#show" data-toggle="tooltip" data-trigger="hover" title="<%= t('.find_client') %>">
+              <i class="fa fa-search"></i>
+            </button>
+          </div>
+          <%= f.full_error :client, class: 'invalid-feedback' %>
+        </div>
+      <% end %>
+
+      <%= f.association :city, collection: sorted_cities %>
+
+      <%= f.association :plan_service, collection: sorted_plan_services %>
+
+      <legend class="form-section">
+        <i class="fa fa-wrench"></i> <%= t('.section.technical_service') %>
+      </legend>
+
+      <% if can? :edit, TechnicalService %>
+        <div class="form-group row string required">
+          <%= f.input :datetime, as: :string, wrapper: false, grid_wrapper_html: { class: 'col-sm-3' } do %>
+            <div class="input-group date">
+              <%= f.input_field :datetime, as: :string, class: 'form-control mask-date align-right', placeholder: 'dd/mm/aaaa', value: short_date(f.object.datetime.utc) %>
+              <div class="input-group-append input-group-addon">
+                <span class="input-group-text">
+                  <i class="fa fa-calendar"></i>
+                </span>
+              </div>
+              <%= f.full_error :datetime, class: 'invalid-feedback' %>
+            </div>
+          <% end %>
+        </div>
+      <% end %> 
+
+      <%= f.input :work_order_number, as: :string, input_html: { class: 'mask-numeric', value: f.object.work_order_number&.zero? ? '' : f.object.work_order_number } %>
+
+      <%= two_column_multiple_choice_for(f, :technicians, required: true, default: f.object.new_record? && f.object.technicians.empty? ? current_user.technician : nil, collection: sorted_active_technicians) %>
+
+      <div class="form-group row string required">
+        <%= f.input :arrival_time, as: :string, wrapper: false, grid_wrapper_html: { class: 'col-sm-3' } do %>
+          <div class="input-group">
+            <%= f.input_field :arrival_time, as: :string, class: 'form-control mask-time', placeholder: 'HH:MM', value: l(f.object.arrival_time, format: :short_time, default: '') %>
+            <div class="input-group-append">
+              <span class="input-group-text">
+                <i class="fa fa-clock-o"></i>
+              </span>
+            </div>
+            <%= f.full_error :arrival_time, class: 'invalid-feedback' %>
+          </div>
+        <% end %>
+
+        <%= f.input :departure_time, as: :string, wrapper: false, grid_wrapper_html: { class: 'col-sm-3' } do %>
+          <div class="input-group">
+            <%= f.input_field :departure_time, as: :string, class: 'form-control mask-time', placeholder: 'HH:MM', value: l(f.object.departure_time, format: :short_time, default: '') %>
+            <div class="input-group-append">
+              <span class="input-group-text">
+                <i class="fa fa-clock-o"></i>
+              </span>
+            </div>
+            <%= f.full_error :departure_time, class: 'invalid-feedback' %>
+          </div>
+        <% end %>
+      </div>
+
+      <%= two_column_multiple_choice_for(f, :work_types, required: true) %>
+
+      <div class="form-group row string required">
+        <%= f.input :labour_cost, wrapper: false, grid_wrapper_html: { class: 'col-sm-3' } do %>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text">$</span>
+            </div>
+            <%= f.input_field :labour_cost, as: :string, class: 'form-control mask-money' %>
+          </div>
+        <% end %>
+
+        <%= f.input :equipment_cost, wrapper: false, grid_wrapper_html: { class: 'col-sm-3' } do %>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text">$</span>
+            </div>
+            <%= f.input_field :equipment_cost, as: :string, class: 'form-control mask-money' %>
+          </div>
+        <% end %>
+      </div>
+
+      <%= f.input :google_maps_url do %>
+        <div data-controller="location" data-location-perform="<%= @technical_service.new_record? %>">
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text">
+                <i class="fa fa-map-marker"></i>
+              </span>
+            </div>
+
+            <%= f.input_field :google_maps_url, class: 'form-control', data: { target: 'location.input' } %>
+
+            <div class="input-group-append">
+              <a class="btn btn-primary" href="https://maps.google.com.ar" target="_blank" data-target="location.link" data-toggle="tooltip" data-trigger="hover" title="<%= t('.open_location') %>">
+                <i class="fa fa-location-arrow"></i>
+              </a>
+            </div>
+          </div>
+          <div class="invalid-feedback d-block" data-target="location.error"></div>
+        </div>
+      <% end %>
+
+      <%= f.input :observations, as: :text %>
+
+      <legend class="form-section">
+        <i class="fa fa-server"></i> <%= t('.section.company_equipment') %>
+      </legend>
+
+      <%= f.association :tower, collection: sorted_towers %>
+      <%= f.association :transmitter, collection: sorted_transmitters %>
+      <%= f.association :device, collection: sorted_devices %>
+
+      <%= two_column_multiple_choice_for(f, :corporate_cellphones, required: true) %>
+
+      <legend class="form-section">
+        <i class="fa fa-home"></i> <%= t('.section.client_equipment') %>
+      </legend>
+
+      <div class="form-group row string required">
+        <%= f.input :router_model, wrapper: false, grid_wrapper_html: { class: 'col-sm-3' } %>
+        <%= f.input :router_serial_number, wrapper: false, grid_wrapper_html: { class: 'col-sm-3' } %>
+      </div>
+
+      <div class="form-group row string required">
+        <%= f.input :wifi_ssid, wrapper: false, grid_wrapper_html: { class: 'col-sm-3' }, input_html: { autocomplete: 'off' } %>
+        <%= f.input :wifi_password, as: :string, wrapper: false, grid_wrapper_html: { class: 'col-sm-3' } %>
+      </div>
+
+      <div class="form-group row string required">
+        <%= f.input :cable_length, as: :string, wrapper: false, grid_wrapper_html: { class: 'col-sm-3' }, input_html: { class: 'mask-meters' } %>
+        <%= f.input :plug_adapter_quantity, as: :string, wrapper: false, grid_wrapper_html: { class: 'col-sm-3' }, input_html: { class: 'mask-numeric' } %>
+      </div>
+
+      <div class="form-group row string required">
+        <%= f.association :balancer, collection: sorted_balancers, wrapper: false, grid_wrapper_html: { class: 'col-sm-3' } %>
+        <%= f.association :support_type, collection: sorted_support_types, wrapper: false, grid_wrapper_html: { class: 'col-sm-3' } %>
+      </div>
+
+      <div class="form-group row string required">
+        <%= f.association :ground_wire_setup_type, collection: sorted_ground_wire_setup_types, wrapper: false, grid_wrapper_html: { class: 'col-sm-3' } %>
+        <%= f.association :surge_protector_setup_type, collection: sorted_surge_protector_setup_types, wrapper: false, grid_wrapper_html: { class: 'col-sm-3' } %>
+      </div>
+    </div>
+
+    <div class="card-footer">
+      <div class="float-right">
+        <%= link_to t('.cancel'), technical_services_path, class: 'btn btn-secondary' %>
+        <%= f.button :submit, t('.submit'), class: 'btn btn-primary' %>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<div id="client-search-modal" class="modal" tabindex="-1" role="dialog">
+</div>
+
+<input id="client-search-id-target" type="hidden" value="technical_service_client_id">
+<input id="client-search-label-target" type="hidden" value="technical_service_client">

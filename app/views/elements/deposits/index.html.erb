@@ -1,0 +1,76 @@
+<%= content_for :header_tabs do %>
+  <nav class="nav nav-pills flex-column flex-sm-row">
+    <%= link_to t('common.nav.elements.technicians'), elements_technicians_path, class: 'flex-sm-fill text-sm-center nav-link' %>
+    <%= link_to t('common.nav.elements.corporate_cellphones'), elements_corporate_cellphones_path, class: 'flex-sm-fill text-sm-center nav-link' %>
+   <%= link_to t('common.nav.elements.telephone_types'), elements_telephone_types_path, class: 'flex-sm-fill text-sm-center nav-link' %>
+    <%= link_to t('common.nav.elements.work_types'), elements_work_types_path, class: 'flex-sm-fill text-sm-center nav-link' %>
+    <%= link_to t('common.nav.elements.providers'), elements_providers_path, class: 'flex-sm-fill text-sm-center nav-link' %>
+    <%= link_to t('common.nav.elements.deposits'), elements_deposits_path, class: 'flex-sm-fill text-sm-center nav-link active' %>
+    <%= link_to t('common.nav.elements.deposit_types'), elements_deposit_types_path, class: 'flex-sm-fill text-sm-center nav-link' %>
+  </nav>
+<% end %>
+
+<%# -- filtrado --- %> 
+<div class="card">
+  <div class="card-body">
+    <%= search_form_for @q, url: elements_deposits_path, remote: true do |f| %>
+      <div class="row">
+
+
+        <div class="col-sm-3">
+           <%= f.input :deposit_type_id_eq, as: :select, collection: sorted_deposit_type, label: t('.search_form.deposit_type'), include_blank: t('search_form.any') %>
+        </div> 
+
+        <div class="col-sm-3">
+           <%= f.input :city_id_eq, as: :select, collection: sorted_city, label: t('.search_form.city'), include_blank: t('search_form.any') %>
+        </div>
+        
+ 
+
+        <div class="col-sm-5">
+          <%= f.input :name_cont, label: t('.search_form.deposit_name') do %>
+            <div class="input-group">
+              <%= f.input_field :name_cont, as: :string, class: 'form-control' %>
+              <div class="input-group-append">
+                <button class="btn btn-primary" type="submit" data-toggle="tooltip" data-trigger="hover" title="<%= t('.search_form.tooltip.submit') %>">
+                  <i class="fa fa-search"></i>
+                </button>&nbsp;&nbsp;
+                <%= link_to '<button class="btn btn-warning"><i class="fa fa-refresh"></i></button>'.html_safe, request.path, remote: true,  title: t('.search_form.reset'), class:'reset-filter' %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+    <% end %>
+  </div>
+</div>
+<%# -- filtrado --- %>
+
+
+
+
+<div class="card">
+  <div class="card-header data-header">
+    <div class="title"><%= t('.header') %></div>
+
+    <div>
+      <% if can? :download, Deposit %>
+        <button type="submit" form="export_form" class="btn btn-sm btn-success" data-toggle="tooltip" data-trigger="hover" data-title="<%= t('.tooltip.export') %>">
+          <i class="fa fa-table"></i>
+        </button>
+      <% end %>
+      <% if can? :create, Deposit %>
+        <%= link_to new_elements_deposit_path, class: 'btn btn-sm btn-primary', data: { toggle: 'tooltip', title: t('.tooltip.new') } do %>
+          <i class="fa fa-plus"></i>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="card-body">
+    <div id="deposits-table-container">
+      <%= render 'deposits_table' %>
+    </div>
+  </div>
+</div>

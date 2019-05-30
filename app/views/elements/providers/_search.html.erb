@@ -1,0 +1,68 @@
+<div class="modal-dialog modal-lg" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title">
+        <%= t('.modal.title') %>
+        <% if current_user.group.organization %>
+          <sub> (<%= current_user.group.organization.name %>)</sub>
+        <% end %>
+      </h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="<%= t('.modal.close') %>">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+
+    <div class="modal-body">
+      <%= search_form_for @q, url: search_elements_providers_path, remote: true do |f| %>
+        <%= f.input :name_cont, label: false do %>
+          <div class="input-group" data-controller="provider-search">
+            <%= f.input_field :name_cont, class: 'form-control', placeholder: t('.placeholder'), value: @name_cont, data: { target: 'provider-search.input', action: 'input->provider-search#change' } %>
+            <div class="input-group-append">
+              <button class="btn btn-primary" type="submit" disabled="disabled" data-target="provider-search.button" data-toggle="tooltip" data-trigger="hover" title="<%= t('.find_provider') %>">
+                <i class="fa fa-search"></i>
+              </button>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+
+      <table id="provider-table" class="table table-responsive-sm table-striped table-hover table-sm table-maxwell-data row-clickable">
+        <thead> 
+          <tr>
+            <th>#</th>
+            <th><%= sort_link(@q, :name, {}, remote: true) %></th>
+            <th><%= sort_link(@q, :email, {}, remote: true) %></th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @providers.each_with_index do |c, index| %>
+            <tr data-controller="provider-search" data-provider-search-id="<%= c.id %>" data-provider-search-label="<%= provider_label(c) %>" data-action="click->provider-search#select">
+              <td><%= index + 1 %></td>
+              <td><%= c.name %></td>
+              <td><%= c.email %></td>
+            </tr>
+          <% end %>
+        </tbody>
+
+        <tfoot>
+          <tr>
+            <td class="page-entries-info" colspan="3"><%= page_entries_info @providers %></td>
+          </tr>
+
+          <% if @providers.total_pages > 1 %>
+            <tr>
+              <td colspan="4">
+                <%= paginate @providers, remote: true, window: 2 %>
+              </td>
+            </tr>
+          <% end %>
+        </tfoot>
+      </table>
+    </div>
+
+    <div class="modal-footer">
+      <button class="btn btn-secondary" data-dismiss="modal"><%= t('.modal.close') %></button>
+    </div>
+  </div>
+</div>

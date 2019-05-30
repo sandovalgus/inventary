@@ -1,0 +1,69 @@
+<div id="alert-message">
+  <% if flash[:alert] %>
+    <div class="alert alert-success" role="alert">
+      <%= flash[:alert] %>
+    </div>
+  <% end %>
+</div>
+
+<table class="table table-responsive-sm table-striped table-hover table-sm table-maxwell-data">
+  <thead>
+    <tr>
+      <th class="number-column">#</th>
+      <th><%= sort_link(@q, :name, {}, remote: true) %></th>
+       <th><%= sort_link(@q, :contact_name, {}, remote: true) %></th>
+       <th><%= sort_link(@q, :identification_number, {}, remote: true) %></th>
+       <th><%= sort_link(@q, :tax_category_number, {}, remote: true) %></th>
+ 
+      <th class="action-column"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @providers.each_with_index do |t, index| %>
+      <tr>
+        <td><%= @providers.offset_value + index + 1 %></td>
+        <td><%= t.name %></td>
+        <td><%= t.contact_name ? t.contact_name : "" %></td>
+        <td><%= t.identification_number ? t.identification_number : "" %></td>
+        <td><%= t.tax_category_number ? t.tax_category_number : "" %></td>
+         
+
+        <td class="action-buttons">
+          <% if can? :update, t %>
+            <%= link_to edit_elements_provider_path(t), class: 'btn btn-sm btn-outline-primary', data: { toggle: 'tooltip', title: t('.tooltip.edit') } do %>
+              <i class="fa fa-pencil"></i>
+            <% end %>
+          <% end %>
+
+          <% if can? :manage, t %>
+            <%= link_to path_with_parameters(:elements_provider_path, t), remote: true, method: :delete, class: 'btn btn-sm btn-outline-danger', data: { toggle: 'tooltip', trigger: 'hover', title: t('.tooltip.delete'), confirm: t('.delete_confirm') } do %>
+              <i class="fa fa-trash"></i>
+            <% end %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+
+  <tfoot>
+    <tr>
+      <td class="page-entries-info" colspan="4"><%= page_entries_info @providers %></td>
+    </tr>
+
+    <% if @providers.total_pages > 1 %>
+      <tr>
+        <td colspan="6">
+          <%= paginate @providers, remote: true %>
+        </td>
+      </tr>
+    <% end %>
+  </tfoot>
+</table>
+
+<%= search_form_for @q, url: download_elements_providers_path, id: 'export_form' do |f| %>
+  <%= f.hidden_field :name_cont %>
+  <%= f.hidden_field :contact_name_cont %>
+  <%= f.hidden_field :identification_number_cont %>
+  <%= f.hidden_field :tax_category_number_cont %>
+<% end %>  

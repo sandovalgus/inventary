@@ -1,0 +1,41 @@
+
+<fieldset>
+    <div class="container">
+        <div class="form-group row string required">
+            <%= f.input :street, wrapper: false, grid_wrapper_html: { class: 'col-sm-6' }%>
+        </div>
+        <div class="form-group row string required">
+            <%= f.input :house_number, wrapper: false, grid_wrapper_html: { class: 'col-sm-3' }%>
+            <%= f.input :block, wrapper: false, grid_wrapper_html: { class: 'col-sm-3' }%>
+        </div>
+        <div class="form-group row string required">
+            <%= f.input :floor, wrapper: false, grid_wrapper_html: { class: 'col-sm-3' }%>
+            <%= f.input :number_department, wrapper: false, grid_wrapper_html: { class: 'col-sm-3' }%>
+        </div>
+        <div class="form-group row string required">
+            <%= f.input :neighborhood, wrapper: false, grid_wrapper_html: { class: 'col-sm-6' }%>
+        </div>
+        <div class="form-group row string required">
+            <%= f.association :country, wrapper: false, grid_wrapper_html: { class: 'col-sm-3' } %>
+            <%= f.association :province, wrapper: false, grid_wrapper_html: { class: 'col-sm-3' } %>
+        </div>
+
+        <div class="form-group row string required">
+          <%= f.association :city, wrapper: false, grid_wrapper_html: { class: 'col-sm-3' } %>
+        </div>
+        
+
+        <div class="row">
+        <div data-action="click->address#deleteAddress" >
+              <%= f.hidden_field :_destroy %>
+             <%= link_to( t('.deleteAddress').html_safe,'#', class: 'remove_fields btn btn-block btn-danger')  %>
+        </div>
+        
+        </div>
+        <hr>
+
+    </div>
+</fieldset>
+
+
+

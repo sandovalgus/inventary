@@ -1,0 +1,49 @@
+es-AR:
+  elements:
+    providers:
+      edit:
+        header: 'Editar Proveedor'
+      form:
+        cancel: 'Cancelar'
+        section:
+          basic: 'Información básica'
+          phone: 'Teléfono del Proveedor'
+          address: 'Direcciones del Proveedor'
+          taxs: 'Impuestos'
+          withholding: 'Retenciónes'
+        action:
+          addPhone: 'Agregar Teléfono'
+          addAddress: 'Agregar Dirección'
+        submit: 'Guardar'
+      index:
+        header: 'Proveedores'
+        tooltip:
+          new: 'Nuevo Proveedor'
+          export: 'Exportar a Excel'
+        search_form:
+          provider_name: 'Nombre Proveedor'
+          identification_number: 'DNI'
+          tax_category_number: 'CUIT'
+          reset: 'Limpiar Filtros'
+          tooltip:
+            submit: 'Buscar'
+      new:
+        header: 'Nuevo Proveedor'
+      providers_table:
+        delete_confirm: '¿Está seguro que desea eliminar este proveedor?'
+        tooltip:
+          edit: 'Editar Proveedor'
+          delete: 'Eliminar Proveedor'
+      contact_fields:
+        deletePhone: 'Eliminar Teléfono'
+      address_fields:
+        deleteAddress: 'Eliminar Dirección'
+      search:
+        find_provider: 'Buscar'
+        modal:
+          close: 'Cerrar'
+          title: 'Buscar proveedor'
+        placeholder: 'Nombre del proveedor'
+        tooltip:
+          select: 'Seleccionar'
+  

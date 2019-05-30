@@ -1,0 +1,41 @@
+es-AR:
+  products:
+    products:
+      edit:
+        header: 'Editar Producto'
+      form:
+        cancel: 'Cancelar'
+        section: &form_sections
+          product: 'Datos del producto'
+          product_detail: 'Detalles del producto'
+          stock: 'Valores por defecto de stock'
+        submit: 'Guardar'
+      index:
+        header: 'Productos'
+        tooltip:
+          new: 'Nuevo producto'
+          export: 'Exportar a Excel'
+        search_form:
+          product_name: 'Nombre - Serie Producto'
+          category: 'Categoria'
+          family: 'Familia' 
+          producer: 'Fabricante'
+          product_type: 'Tipo de producto'
+          reset: 'Limpiar Filtros'
+          tooltip:
+            submit: 'Buscar'
+      new:
+        header: 'Nuevo producto'
+      products_table:
+        delete_confirm: '¿Está seguro que desea eliminar este producto?'
+        tooltip:
+          edit: 'Editar'
+          delete: 'Eliminar'
+      search:
+        find_product: 'Buscar'
+        modal:
+          close: 'Cerrar'
+          title: 'Buscar producto'
+        placeholder: 'Número de producto o nombre...'
+        tooltip:
+          select: 'Seleccionar'

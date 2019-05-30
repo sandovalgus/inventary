@@ -1,0 +1,22 @@
+es-AR:
+  products:
+    product_types:
+      index:
+        header: 'Tipos de Producto'
+        tooltip:
+          new: 'Nuevo Tipo de Producto'
+      edit:
+        header: 'Editar Tipo de Producto'
+      form:
+        cancel: 'Cancelar'
+        section:
+          basic: 'Información básica'
+        submit: 'Guardar'
+      new:
+        header: 'Nuevo Tipo de Producto'
+      product_types_table:
+        delete_confirm: '¿Está seguro que desea eliminar este tipo de producto?'
+        tooltip:
+          edit: 'Editar'
+          delete: 'Eliminar'
+  

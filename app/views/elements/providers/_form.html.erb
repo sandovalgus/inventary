@@ -1,0 +1,131 @@
+<%= simple_form_for [:elements, @provider], wrapper: :maxwell_horizontal_form, defaults: { grid_wrapper_html: { class: 'col-sm-9' } } do |f| %>
+      <div class="card">
+        <div class="card-header"><%= header %></div>
+        <div class="card-body">
+          <legend class="form-section">
+            <i class="fa fa-user"></i> <%= t('.section.basic') %>
+          </legend>
+          
+          <div class="form-group row string required">
+            <%= f.input :name, wrapper: false, grid_wrapper_html: { class: 'col-sm-6' } %>
+          </div>
+          <div class="form-group row string required">
+            <%= f.input :contact_name, wrapper: false, grid_wrapper_html: { class: 'col-sm-6' } %>
+          </div>
+          <div class="form-group row string required">
+            <%= f.input :email, wrapper: false, grid_wrapper_html: { class: 'col-sm-6' } %>
+          </div>
+          <div class="form-group row string required">
+            <%= f.input :website, wrapper: false, grid_wrapper_html: { class: 'col-sm-6' } %>
+          </div>
+        </div>
+
+        <%# <div class="col-sm-12 col-md-12"> %>
+        <%# -- seccion numero contacto --- %>
+          <div class="card">
+      
+            <div class="card-body">
+            <legend class="form-section">
+              <i class="fa fa-phone"></i> <%= t('.section.phone') %>
+            </legend>
+                <%#  %>
+                 <div data-controller="provider">
+                    <div class="field" data-target="field">
+                      <%= f.fields_for :contacts do |builder| %>
+                       <%= render 'contact_fields', f: builder %>
+                      <% end %>
+                      <div data-action="click->provider#addContact">
+                       <%= link_to_add_fields( t('.action.addPhone'), f,:contacts, class: 'btn btn-primary')  %>
+                      </div>
+
+                      
+
+                    </div>
+                 </div>
+            </div>
+          </div>
+        <%# </div> %>
+ 
+        <%# -- seccion direccion -- %>
+          <div class="card">
+
+            <div class="card-body">
+            <legend class="form-section">
+              <i class="fa fa-home"></i> <%= t('.section.address') %>
+            </legend>
+                 <div data-controller="address">
+                    <div class="field" data-target="field">
+                      <%= f.fields_for :addresses do |builder| %>
+                       <%= render 'address_fields', f: builder %>
+                      <% end %>
+                      <div data-action="click->address#addAddress">
+                       <%= link_to_add_fields( t('.action.addAddress'), f,:addresses)  %>
+                      </div>
+                    </div>
+                 </div>
+            </div>
+          </div>
+
+<%# impuestos %>
+          <div class="card">
+            <div class="card-body">
+
+
+                    <legend class="form-section">
+                      <i class="fa fa-home"></i> <%= t('.section.taxs') %>
+                    </legend>
+                    <div class="form-group row string required">
+                      <%= f.input :identification_number, wrapper: false, grid_wrapper_html: { class: 'col-sm-3' }, input_html: { class: 'mask-numeric', maxlength: 8 } %>
+                      <%= f.input :tax_category_number, wrapper: false, grid_wrapper_html: { class: 'col-sm-3' },  input_html: { class: '', maxlength: 14 } %>
+
+                    </div>
+                    <div class="form-group row string required">
+                       <%= f.association :tax_category, wrapper: false, grid_wrapper_html: { class: 'col-sm-3' } %>
+                    </div>
+                    
+
+                    <legend class="form-section">
+                      <i class="fa fa-home"></i> <%= t('.section.withholding') %>
+                    </legend>
+                    <div data-controller="provider">
+
+                              <%= f.input :withholdingstatus, label: false, wrapper: :horizontal_boolean, grid_wrapper_html: { class: '' }, form_check_wrapper_html: { class: 'form-check-no-padd' } do %>
+                                <%= f.input_field :withholdingstatus, as: :hidden %>
+                                <label class="switch switch-label switch-pill switch-primary">
+                                  <%= f.input_field :withholdingstatus, 
+                                                    class: 'switch-input', 
+                                                    data: {
+                                                          target: "provider.withholdingstatus",
+                                                          action: "change->provider#retencion"
+                                                          }
+                                    %>
+                                  <span class="switch-slider" data-checked="<%= t('boolean.byes') %>" data-unchecked="<%= t('boolean.bno') %>"></span>
+                                </label>
+                              <% end %> 
+
+                            <div data-target="provider.retenciones">
+                              <% for w in WithholdingTax.all %>
+                                <%= check_box_tag "provider[withholding_tax_ids][]", w.id, @provider.withholding_taxes.include?(w) %>
+                                <%=h w.withholding %><br />
+                              <% end %>
+
+                            </div>
+                    </div>
+                   
+                           
+                               
+            </div>
+          </div>
+
+ 
+
+ 
+        <div class="card-footer">
+          <div class="float-right">
+            <%= link_to t('.cancel'), elements_providers_path, class: 'btn btn-secondary' %>
+            <%= f.button :submit, t('.submit'), class: 'btn btn-primary' %>
+          </div>
+        </div>
+  
+
+<% end %>

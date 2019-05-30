@@ -1,0 +1,21 @@
+es-AR:
+  products:
+    categories:
+      edit:
+        header: 'Editar Categoria'
+      form:
+        cancel: 'Cancelar'
+        section:
+          basic: 'Información básica'
+        submit: 'Guardar'
+      index:
+        header: 'Categorias'
+        tooltip:
+          new: 'Nueva categoria'
+      new:
+        header: 'Nueva Categoria'
+      categories_table:
+        delete_confirm: '¿Está seguro que desea eliminar esta categoria?'
+        tooltip:
+          edit: 'Editar'
+          delete: 'Eliminar'

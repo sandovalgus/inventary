@@ -1,0 +1,102 @@
+es-AR:
+  boolean:
+    bno: 'No'
+    byes: 'Sí'
+  common:
+    attention_alert: '¡Atención!'
+    nav:
+      billing_exports: 'Facturación'
+      invoices: 'Comprobantes'
+      elements:
+        corporate_cellphones: 'Teléfonos Celulares'
+        telephone_types: 'Tipos de Teléfonos'
+        technicians: 'Técnicos'
+        work_types: 'Tipos de trabajo'
+        deposits: 'Depósitos'
+        deposit_types: 'Tipo de Depósitos'
+        providers: 'Proveedores'
+      groups: 'Grupos y Permisos'
+      products: 
+        categories: 'Categorias'
+        families: 'Familias'
+        family: 'Familia'
+        producers: 'Fabricantes'
+        products: 'Productos'
+        product_types: 'Tipos de Productos'
+      taxes:
+        tax_categories: 'Categoría ante el IVA'
+        withholding_taxes: 'Retenciones'
+        voucher_types: 'Tipos de Comprobantes'
+      users: 'Usuarios'
+  enumerize:
+    account:
+      nature:
+        order: 'Orden'
+        patrimonial: 'Patrimonial'
+        regulator: 'Regularizadora'
+        result: 'Resultado'
+    group_permission:
+      permission_code:
+        create: 'Crear'
+        edit: 'Crear y editar'
+        edit_delete: 'Editar y eliminar'
+        deny: 'Denegar'
+        view: 'Ver'
+    invoice:
+      model:
+        checkbook: 'Talonario'
+        electronic: 'Electrónico'
+        other: 'Otro'
+      sale_condition:
+        cheque: 'Cheque'
+        credito: 'Crédito'
+        cta_cte: 'Cuenta Corriente'
+        debito: 'Débito'
+        efectivo: 'Efectivo'
+        mercado_pago: 'Mercado Pago'
+        otro: 'Otro'
+        pay_u: 'PayU'
+        ticket: 'Ticket'
+    invoice_item:
+      iva:
+        iva_21: '21 %'
+      voucher_type:
+        cotizacion: 'Cotización'
+        factura_a: 'Factura A'
+        factura_b: 'Factura B'
+        factura_c: 'Factura C'
+        ndebito_a: 'Nota de débito A'
+        ndebito_b: 'Nota de débito B'
+        ndebito_c: 'Nota de débito C'
+        ncredito_a: 'Nota de crédito A'
+        ncredito_b: 'Nota de crédito B'
+        ncredito_c: 'Nota de crédito C'
+
+  layouts:
+    application:
+      account: 'Cuenta'
+      logout: 'Salir'
+
+      nav:
+        accounting: 'Contabilidad'
+        accounts_chart: 'Plan de Cuentas'
+        billing_exports: 'Facturación'
+        dashboard: 'Tablero'
+        deposit_moves: 'Mov. por Depósito'
+        elements: 'Elementos'
+        inventory: 'Inventario'
+        products: 'Productos'
+        taxes: 'Impuestos'
+        services: 'Servicios'
+        settings: 'Ajustes'
+        stock: 'Stock'
+        system: 'Sistema'
+        technical_services: 'Servicios Técnicos'
+        users: 'Usuarios y Grupos'
+  search_form:
+    any: '-- Todos --'
+
+  unauthorized:
+    manage:
+      all: 'Usted no tiene permiso para acceder a esta función'
+    message: 'Usted no tiene permiso para realizar esta acción'

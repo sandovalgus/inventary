@@ -1,0 +1,21 @@
+es-AR:
+  elements:
+    telephone_types:
+      edit:
+        header: 'Editar	Teléfono'
+      form:
+        cancel: 'Cancelar'
+        section:
+          basic: 'Información básica'
+        submit: 'Guardar'
+      index:
+        header: 'Tipos de Teléfonos'
+        tooltip:
+          new: 'Nuevo Tipo Teléfono'
+      new:
+        header: 'Nuevo Tipo de Teléfono'
+      telephone_types_table:
+        delete_confirm: '¿Está seguro que desea eliminar este tipo de Teléfono?'
+        tooltip:
+          edit: 'Editar'
+          delete: 'Eliminar'

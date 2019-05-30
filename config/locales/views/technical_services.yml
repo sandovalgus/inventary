@@ -1,0 +1,55 @@
+es-AR:
+  technical_services:
+    edit:
+      form:
+        edit_header: 'Editar Servicio Técnico'
+    form:
+      cancel: 'Cancelar'
+      find_client: 'Buscar cliente'
+      open_location: 'Ir a Google Maps'
+      section: &form_sections
+        client: 'Datos del cliente'
+        client_equipment: 'Equipos del cliente'
+        company_equipment: 'Equipos de la empresa'
+        technical_service: 'Servicio Técnico'
+      submit: 'Guardar'
+    index:
+      header: 'Servicios Técnicos'
+      tooltip:
+        export: 'Exportar a Excel'
+        new: 'Nuevo servicio técnico'
+      search_form:
+        client: 'Cliente'
+        find_client: 'Buscar cliente'
+        invoice: 'Facturación'
+        period: 'Período'
+        technician: 'Técnico'
+        invoice_types:
+          invoiced: 'Facturado'
+          not_invoiced: 'No facturado'
+        work_order_number: 'Orden de trabajo'
+        work_type: 'Tipo de trabajo'
+        tooltip:
+          submit: 'Buscar'
+        total_cost_type: 'Costo'
+        total_cost_types:
+          free: 'Bonificado'
+          nonfree: 'No bonificado'
+        user: 'Usuario'
+      show_more: 'Más filtros'
+    new:
+      form:
+        new_header: 'Registrar Servicio Técnico'
+    show:
+      section: *form_sections
+      header: 'Servicio Técnico'
+      tooltip:
+        edit: 'Editar'
+        index: 'Volver'
+      view_invoice: 'Ver comprobante'
+    technical_services_table:
+      delete_confirm: '¿Está seguro que desea eliminar este servicio técnico?'
+      tooltip:
+        delete: 'Eliminar'
+        edit: 'Editar servicio'
+        show: 'Ver detalles'

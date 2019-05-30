@@ -1,0 +1,45 @@
+<div id="alert-message">
+  <% if flash[:alert] %>
+    <div class="alert alert-success" role="alert">
+      <%= flash[:alert] %>
+    </div>
+  <% end %>
+</div>
+
+<table class="table table-responsive-sm table-striped table-hover table-sm table-maxwell-data">
+  <thead>
+    <tr>
+      <th>Depósito</th>
+      <th>Descripción</th>
+      <th>Tipo</th>
+      <th>Dirección</th>
+      <th>Última Actualización</th>
+      <th class="action-column"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @deposits.each_with_index do |dep, index| %>
+      <tr>
+        <td><%= dep.name %></td>
+        <td><%= dep.description %></td>
+        <td><%= dep.deposit_type.name %></td>
+        <td><%= "#{dep.address} (#{[dep.city.name, dep.province.name, dep.country.name].compact.join(", ")})" %></td>
+        <td><%= I18n.l(dep.updated_at.to_date, locale: :es, format: :long) %></td>
+        <td class="action-buttons">
+          <%= link_to per_deposit_inventories_path(deposit_id: dep.id), class: 'btn btn-sm btn-outline-success', data: { toggle: 'tooltip', title: t('.tooltip.show') } do %>
+            <i class="fa fa-eye"></i>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+
+  <tfoot>
+    <tr>
+      <td class="page-entries-info" colspan="6"></td>
+    </tr>
+  </tfoot>
+</table>
+
+

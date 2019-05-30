@@ -1,0 +1,139 @@
+<div id="alert-message">
+  <% if flash[:alert] %>
+    <div class="alert alert-success" role="alert">
+      <%= flash[:alert] %>
+    </div>
+  <% end %>
+</div>
+
+<table class="table table-responsive-sm table-striped table-hover table-sm table-maxwell-data" style="border-collapse:collapse;">
+  <thead>
+      <tr>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th>
+                    <div class="collapse" id="collapseExample">
+              <div class="card card-body">
+                <p>
+                  <span class="badge badge-success">Disponible</span>
+                  Producto disponible para manipulación (eliminar, mover, vender).
+                </p>
+                <p>
+                  <span class="badge badge-warning">En movimiento</span>
+                  Producto en carga como detalle de un movimiento entre depósitos.
+                </p>
+                <p>
+                  <span class="badge badge-danger">Eliminado</span>
+                  Producto eliminado.   
+                </p>
+                <p>
+                  <span class="badge badge-info">En transito</span>
+                  Producto en tránsito a depósito destino.
+                </p>
+                <p>
+                  <span class="badge badge-danger">Vendido</span>
+                  Producto vendido.
+                </p>
+              </div>
+            </div>
+        </th>
+        <th>
+            <p>
+              <a class="btn btn-sm btn-outline-primary float-right margLefRig" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample"
+               data-placement="top" title="Información">
+                <i class="fa fa-question"></i>
+              </a>
+            </p>
+
+        </th>
+
+      </tr>
+  </thead>
+  <thead>
+      <tr>
+        <th></th>
+        <th>Depósito</th>
+        <th>Tipo</th>
+        <th>Domicilio</th>
+        <th>Última Actualización</th>
+        <th>Stock</th>
+        <th class="text-center">Stock Mínimo / Reposición</th>
+      </tr>
+  </thead>
+  <tbody>
+    <% @inventories.each do |inv, indexes| %>
+      <tr data-toggle="collapse" data-target="#deposito<%=inv.id%>, #head<%=inv.id%>" class="accordion-toggle">
+        <th><i class="fa fa-arrows-v fa-lg"></i></th>
+        <td><%= inv.name %></td>
+        <td><%= inv.deposit_type.name %></td>
+        <td><%= "#{inv.address} - (#{inv.city.name}, #{inv.province.name})" %></td>
+        <td><%= I18n.l(indexes.last.updated_at.to_datetime, locale: :es, format: :long) %></td>
+        <% if (indexes.last.product.is_reorder_point?(indexes.length, indexes.last.product.reorder_point_default)) %>
+          <td class="text-danger text-center"><%= indexes.length %></td>
+        <% else %>
+          <td class="text-center"><%= indexes.length %></td>
+        <% end %>
+        <td class="text-center"><%= "#{[indexes.last.product.stock_min_default, indexes.last.product.reorder_point_default].compact.join(" / ")}" %></td>
+      </tr>
+      <thead class="accordian-body collapse" id="head<%=inv.id%>" style="text-align: right !important; background-color: white;">
+        <tr>
+          <th><span class="cui-arrow-right" aria-hidden="true"></span></i></th>
+          <th>Selección</th>
+          <th>Número Serial</th>
+          <th colspan="2">Proveedor</th>
+          <th>Estado</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <% for index in indexes %>
+        <tr class="accordian-body collapse" id="deposito<%= inv.id %>" style="text-align: right !important; background-color: white;">
+          <td></td>
+          <td>
+            <div data-controller="deposit-move">
+              <% if(index.status == :disponible) %>
+                <input type="checkbox" value="<%= index.id %>" class="catchProducts">
+              <% else %>
+                <input type="checkbox" value="<%= index.id %>" class="catchProducts" disabled>
+              <% end %>
+            </div>
+          </td>
+          <td>
+            <b class="text-info"><%= index.serial_number.blank? ? 'vacio' : index.serial_number %></b>
+          </td>
+          <td colspan="2">
+            <b class="text-info"><%= index.provider.name.blank? ? 'vacio' : index.provider.name %></b>
+          </td>
+          <td>
+            <% if(index.status == :en_movimiento) %>
+              <b class="text-warning"><%= index.status.split("_").map(&:capitalize).join(" ") %></b>
+            <% elsif(index.status == :eliminado || index.status == :vendido) %>
+              <b class="text-danger"><%= index.status.split("_").map(&:capitalize).join(" ") %></b>
+            <% elsif(index.status == :en_transito) %>
+              <b class="text-info"><%= index.status.split("_").map(&:capitalize).join(" ") %></b>
+            <% elsif(index.status == :disponible) %>
+              <b class="text-success"><%= index.status.split("_").map(&:capitalize).join(" ") %></b>
+            <% end %>
+          </td>
+          <td class="action-buttons">
+            <% if can? :update, index %>
+              <%= link_to edit_inventory_path(index), class: 'btn btn-sm btn-outline-primary', data: { toggle: 'tooltip', title: t('.tooltip.edit') } do %>
+                <i class="fa fa-pencil"></i>
+              <% end %>
+            <% end %>
+            <%= link_to inventory_path(index), class: 'btn btn-sm btn-outline-primary', data: { toggle: 'tooltip', title: t('.tooltip.show') } do %>
+              <i class="fa fa-eye"></i>
+            <% end %>
+        </td>
+        </tr>
+      <% end %> 
+    <% end %>
+  </tbody>
+  <tfoot>
+    <tr>
+      <td class="page-entries-info" colspan="9"></td>
+    </tr>
+  </tfoot>
+</table>

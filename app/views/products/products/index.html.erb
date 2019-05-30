@@ -1,0 +1,82 @@
+<%= content_for :header_tabs do %>
+  <nav class="nav nav-pills flex-column flex-sm-row">
+    <%= link_to t('common.nav.products.categories'), products_categories_path, class: 'flex-sm-fill text-sm-center nav-link' %>
+    <%= link_to t('common.nav.products.producers'), products_producers_path, class: 'flex-sm-fill text-sm-center nav-link' %>
+    <%= link_to t('common.nav.products.families'), products_families_path, class: 'flex-sm-fill text-sm-center nav-link' %>
+    <%= link_to t('common.nav.products.products'), products_products_path, class: 'flex-sm-fill text-sm-center nav-link active' %>
+    <%= link_to t('common.nav.products.product_types'), products_product_types_path, class: 'flex-sm-fill text-sm-center nav-link' %>
+
+  </nav>
+<% end %> 
+
+<%# -- filtrado --- %>
+<div class="card">
+  <div class="card-body">
+    <%= search_form_for @q, url: products_products_path, remote: true do |f| %>
+      <div class="row">
+        <div class="col-sm-3">
+           <%= f.input :product_type_id_eq, as: :select, collection: sorted_product_type, label: t('.search_form.product_type'), include_blank: t('search_form.any') %>
+        </div>
+        <div class="col-sm-3">
+           <%= f.input :category_id_eq, as: :select, collection: sorted_category, label: t('.search_form.category'), include_blank: t('search_form.any') %>
+        </div>
+
+        <div class="col-sm-3">
+           <%= f.input :producer_id_eq, as: :select, collection: sorted_producer, label: t('.search_form.producer'), include_blank: t('search_form.any') %>
+        </div>
+        <div class="col-sm-3">
+           <%= f.input :family_id_eq, as: :select, collection: sorted_family, label: t('.search_form.family'), include_blank: t('search_form.any') %>
+        </div>
+        
+ 
+      </div>
+
+      <div class="row">
+        <div class="col-sm-12">
+              <%= f.input :product_number_or_name_cont,  label: t('.search_form.product_name') %>
+        </div>
+      </div>
+
+
+      <div class="row">
+        <div class="col-sm-12">
+            <button class="btn btn-primary float-right margLefRig" type="submit" data-toggle="tooltip" data-trigger="hover" title="<%= t('.search_form.tooltip.submit') %>">
+            <i class="fa fa-search"></i>
+            </button>&nbsp;&nbsp;
+            <%= link_to '<button class="btn btn-warning float-right margLefRig"><i class="fa fa-refresh"></i></button>'.html_safe, request.path, remote: true,  title: t('.search_form.reset'), class:'reset-filter' %>
+        </div>
+      </div>
+      
+
+    <% end %>
+  </div>
+</div>
+<%# -- filtrado --- %> 
+
+
+
+<div class="card">
+  <div class="card-header data-header">
+    <div class="title"><%= t('.header') %></div>
+
+    <div>
+      <% if can? :download, Product %>
+        <button type="submit" form="export_form" class="btn btn-sm btn-success" data-toggle="tooltip" data-trigger="hover" data-title="<%= t('.tooltip.export') %>">
+          <i class="fa fa-table"></i>
+        </button>
+      <% end %>
+
+      <% if can? :create, Product %>
+        <%= link_to new_products_product_path, class: 'btn btn-sm btn-primary', data: { toggle: 'tooltip', title: t('.tooltip.new') } do %>
+          <i class="fa fa-plus"></i>
+        <% end %>
+      <% end %>
+    </div> 
+  </div>
+
+  <div class="card-body">
+    <div id="products-table-container">
+      <%= render 'products_table' %>
+    </div>
+  </div>
+</div> 

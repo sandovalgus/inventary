@@ -1,0 +1,64 @@
+<div id="alert-message">
+  <% if flash[:alert] %>
+    <div class="alert alert-success" role="alert">
+      <%= flash[:alert] %>
+    </div>
+  <% end %>
+</div>
+
+<table class="table table-responsive-sm table-striped table-hover table-sm table-maxwell-data">
+  <thead>
+    <tr>
+      <th class="number-column">#</th>
+
+      <th><%= sort_link(@q, :name, {}, remote: true) %></th>
+      <th><%# sort_link(@q, :description, {}, remote: true) %></th>
+      <th><%# sort_link(@q, :type, {}, remote: true) %></th>
+      <th><%# sort_link(@q, :category, {}, remote: true) %></th>
+      <th><%# sort_link(@q, :producer, {}, remote: true) %></th>
+      <th class="action-column"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @tax_categories.each_with_index do |c, index| %>
+      <tr>
+        <td><%= @tax_categories.offset_value + index + 1 %></td>
+        <td><%= c.name %></td>
+        <td><%# c.name %></td>
+        <td><%# c.description %></td>
+        <td><%# c.type %></td>
+        <td><%# c.category %></td>
+        <td><%# c.producer %></td>
+
+        <td class="action-buttons">
+          <% if can? :update, c %>
+            <%= link_to edit_taxes_tax_category_path(c), class: 'btn btn-sm btn-outline-primary', data: { toggle: 'tooltip', title: t('.tooltip.edit') } do %>
+              <i class="fa fa-pencil"></i>
+            <% end %>
+          <% end %>
+
+          <% if can? :manage, c %>
+            <%= link_to path_with_parameters(:taxes_tax_category_path, c), remote: true, method: :delete, class: 'btn btn-sm btn-outline-danger', data: { toggle: 'tooltip', trigger: 'hover', title: t('.tooltip.delete'), confirm: t('.delete_confirm') } do %>
+              <i class="fa fa-trash"></i>
+            <% end %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+
+  <tfoot>
+    <tr>
+      <td class="page-entries-info" colspan="8"><%= page_entries_info @tax_categories %></td>
+    </tr>
+
+    <% if @tax_categories.total_pages > 1 %>
+      <tr>
+        <td colspan="8">
+          <%= paginate @tax_categories, remote: true %>
+        </td>
+      </tr>
+    <% end %>
+  </tfoot>
+</table>

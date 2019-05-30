@@ -1,0 +1,29 @@
+es-AR:
+  taxes:
+    withholding_taxes:
+      edit:
+        header: 'Editar Retención'
+      form:
+        cancel: 'Cancelar'
+        section:
+          withholding: 'Información básica'
+        action:
+          addPhone: 'Agregar Teléfono'
+          addAddress: 'Agregar Dirección'
+        submit: 'Guardar'
+      index:
+        header: 'Retenciónes'
+        tooltip:
+          new: 'Nueva Retención'
+      new:
+        header: 'Nueva Retención'
+      withholding_taxes_table:
+        delete_confirm: '¿Está seguro que desea eliminar esta Retención?' 
+        tooltip:
+          edit: 'Editar Retención'
+          delete: 'Eliminar Retención'
+      contact_fields:
+        deletePhone: 'Eliminar Retención'
+      address_fields:
+        deleteAddress: 'Eliminar Retención'
+  

@@ -1,0 +1,38 @@
+<%= simple_form_for [:elements, @deposit], wrapper: :maxwell_horizontal_form, defaults: { grid_wrapper_html: { class: 'col-sm-9' } } do |f| %>
+  <div class="card">
+    <div class="card-header"><%= header %></div>
+
+    <div class="card-body">
+      <legend class="form-section">
+        <i class="fa fa-user"></i> <%= t('.section.basic') %>
+      </legend>
+
+      <div class="form-group row string required">
+        <%= f.input :name, wrapper: false, grid_wrapper_html: { class: 'col-sm-3' } %>
+        <%= f.association :deposit_type,label_method: :name,  include_blank: false,wrapper: false, grid_wrapper_html: { class: 'col-sm-3' } %>
+
+      </div> 
+      
+      <%= f.input :address, as: :text %>
+
+      <div class="form-group row string required">
+        <%= f.association :country, wrapper: false, grid_wrapper_html: { class: 'col-sm-3' } %>
+        <%= f.association :province, wrapper: false, grid_wrapper_html: { class: 'col-sm-3' } %>
+      </div>
+
+      <div class="form-group row string required">
+        <%= f.association :city, wrapper: false, grid_wrapper_html: { class: 'col-sm-3' } %>
+      </div>
+
+      <%= f.input :description, as: :text %>
+
+    </div>
+
+    <div class="card-footer">
+      <div class="float-right">
+        <%= link_to t('.cancel'), elements_deposits_path, class: 'btn btn-secondary' %>
+        <%= f.button :submit, t('.submit'), class: 'btn btn-primary' %>
+      </div>
+    </div>
+  </div>
+<% end %>

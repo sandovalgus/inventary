@@ -1,0 +1,144 @@
+<div class="card">
+  <div class="card-header data-header">
+    <div class="title">
+      <%= t('.header')%>
+    </div>
+  </div>
+
+  <div class="card-body">
+    <%# Formulario de movimiento entre depósitos %>
+    <%= simple_form_for @move, :url => move_path(@move), :method => :PUT, wrapper: :maxwell_horizontal_form, defaults: { grid_wrapper_html: { class: 'col-sm-9' } } do |f| %>
+      <legend class="form-section">
+        <i class="fa fa-truck fa-lg mt-4"></i> Seleccione el depósito destino
+      </legend>
+      <%# Buscar y seleccionar depósito %>
+      <%= f.simple_fields_for :move_details, f.object.move_details.limit(1) do |md| %>
+        <%= md.association :site_to %>
+      <% end %>
+
+      <div class="form-group row string required">
+        <%= f.input :move_date, as: :string, wrapper: false, grid_wrapper_html: { class: 'col-sm-3' } do %>
+          <div class="input-group date">
+            <%= f.input_field :move_date, as: :string, class: 'form-control mask-date align-right', placeholder: 'dd/mm/aaaa', value: short_date(f.object.move_date.utc) %>
+            <div class="input-group-append input-group-addon">
+              <span class="input-group-text">
+                <i class="fa fa-calendar"></i>
+              </span>
+            </div>
+            <%= f.full_error :move_date, class: 'invalid-feedback' %>
+          </div>
+        <% end %>
+        <%= f.input :status, as: :string, wrapper: false, grid_wrapper_html: { class: 'col-sm-2', "aria-label" => "statusHelp" } do %>
+          <%= f.input_field :status, as: :select, class: 'form-control' %>
+          <small id="statusHelp" class="form-text text-muted" style="display:none"><p class="text-danger"><%= t('.status_help')%></p></small>
+        <% end %>
+
+        <div class="col-sm-1">
+            <p>
+              <a class="btn btn-sm btn-outline-primary float-right margLefRig" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample"
+               data-placement="top" title="Información">
+                <i class="fa fa-question"></i>
+              </a>
+            </p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+
+            <div class="collapse" id="collapseExample">
+              <div class="card card-body">
+                <p>
+                  <span class="badge badge-secondary">En carga</span>
+                  Movimiento entre depósitos se encuentra en carga de detalles.
+                </p>
+                <p>
+                  <span class="badge badge-light">En espera</span>
+                  Movimiento entre depósitos en espera a ser enviado.
+                </p>
+                <p>
+                  <span class="badge badge-danger">Eliminado</span>
+                   Movimiento entre depósitos eliminado (se conserva detalle para su consulta). 
+                </p>
+                <p>
+                  <span class="badge badge-info">En transito</span>
+                  Movimiento entre depósitos en tránsito, a depósito destino.
+                </p>
+                <p>
+                  <span class="badge badge-success">Recibido</span>
+                 Movimiento entre depósitos recibido correctamente.
+                </p>
+                <p>
+                  <span class="badge badge-warning">Retrasado</span>
+                  Movimiento entre depósitos retrasado.   
+                </p>
+              </div>
+            </div>
+        </div>
+      </div>
+
+      <legend class="form-section">
+        <i class="fa fa-user"></i> Usuarios involucrados
+      </legend>
+      <div class="form-group row string required">
+        <%= f.association :user_register, wrapper: false, grid_wrapper_html: { class: 'col-sm-3' } %>
+        <%= f.association :user_take, wrapper: false, grid_wrapper_html: { class: 'col-sm-3' } %>
+      </div>
+
+      <legend class="form-section">
+        <i class="fa fa-paperclip"></i> Comprobante asociado
+      </legend>
+      <div class="form-group row string required">
+        <%= f.association :voucher_type, wrapper: false, grid_wrapper_html: { class: 'col-sm-3' } %>
+        <%= f.input :voucher_number, wrapper: false, grid_wrapper_html: { class: 'col-sm-3' } %>
+      </div>
+
+      <div class="card-body">
+        <div class="card-header data-header">
+          <div class="title">
+            <%= t('.header_detail')%>
+          </div>
+        </div>
+        <table class="table table-responsive-sm table-striped table-hover table-sm table-maxwell-data">
+          <thead> 
+            <tr>
+              <th>Inventario Id</th>
+              <th>Producto</th>
+              <th>N° de Serie</th>
+              <th>N° MAC</th>
+              <th>Firmware Version</th>
+              <th>Depósito Origen</th>
+              <th>Proveedor</th>
+              <th></th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <% @move_details.each do |md| %>
+              <tr>
+                <td><%= md.inventory.id %></td>
+                <td><%= md.inventory.product.name %></td>
+                <td><%= md.inventory.serial_number %></td>
+                <td><%= md.inventory.mac_address %></td>
+                <td><%= md.inventory.firmware_version %></td>
+                <td><%= "#{md.site_from.name}, #{md.site_from.address} (#{md.site_from.city.name} - #{md.site_from.province.name})" %></td>              
+                <td><%= md.inventory.provider.name %></td>              
+                <td>
+                  <%= link_to destroy_move_detail_moves_path(:id => md.id), class: 'btn btn-sm btn-outline-danger', :id => "del-#{md.id}", method: :delete, data: { confirm: '¿Está seguro de eliminar este detalle?', toggle: 'tooltip', title: t('.detail_table.destroy_item') }, remote: true do %>
+                    <i class="fa fa-trash"></i>
+                  <% end %>
+                </td>              
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="modal-footer">
+        <div class="float-right">
+          <%= link_to t('.cancel'), moves_path, class: 'btn btn-secondary' %>
+          <%= f.button :submit, t('.submit'), class: 'btn btn-primary' %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

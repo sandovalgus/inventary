@@ -1,0 +1,22 @@
+es-AR:
+  elements:
+    deposit_types:
+      edit:
+        header: 'Editar Tipo de Depósito'
+      form:
+        cancel: 'Cancelar'
+        section:
+          basic: 'Información básica'
+        submit: 'Guardar'
+      index:
+        header: 'Tipo de Depósitos'
+        tooltip:
+          new: 'Nuevo tipo de depósito'
+          export: 'Exportar a Excel'
+      new:
+        header: 'Nuevo Tipo de Depósito'
+      deposit_types_table:
+        delete_confirm: '¿Está seguro que desea eliminar este tipo de depósito?'
+        tooltip:
+          edit: 'Editar tipo de depósito'
+          delete: 'Eliminar tipo de depósito'

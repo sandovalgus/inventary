@@ -1,0 +1,361 @@
+es-AR:
+  activerecord:
+    attributes:
+      account:
+        code: 'Código'
+        imputable: 'Imputable'
+        name: 'Nombre'
+        nature: 'Naturaleza'
+        parent_id: 'Cuenta madre'
+      address:
+        street: 'Calle o Avenida'
+        house_number: 'Nro. Casa'
+        neighborhood: 'Barrio'
+        block: 'Manzana'
+        floor: 'Piso'
+        country: 'País'
+        province: 'Provincia'
+        city: 'Ciudad'
+        number_department: 'Número de departamento'
+      category:
+        name: 'Categoria'
+        description: 'Descripción'
+      city:
+        name: 'Ciudad'
+      client:
+        document_number: 'DNI / CUIT'
+        name: 'Cliente'
+        number: 'Número'
+      contact:
+        name: 'Nombre de contacto'
+        phone: 'Teléfono'
+        type_phone: 'Tipo de Teléfono'
+        telephone_type: 'Tipo de Teléfono'
+      corporate_cellphone:
+        phone: 'Teléfono'
+        technical_service_corporate_cellphones: 'Servicios Técnicos'
+      deposit:
+        name: 'Depósito'
+        description: 'Descripción' 
+        deposit_type: 'Tipo'
+        address: 'Dirección'
+        country: 'País'
+        province: 'Provincia'
+        city: 'Ciudad' 
+      deposit_type:
+        name: 'Tipo de Deposito'
+        description: 'Descripción'
+      family:
+        name: 'Familia'
+        producer_id: 'Fabricante'
+        producer: 'Fabricante'
+      group:
+        name: 'Nombre'
+        organization: 'Organización'
+        permissions: 'Permisos'
+        users: 'Usuarios'
+      inventory:
+        deposit: 'Depósito'
+        exist: 'En existencia'
+        firmware_version: 'Versión de firmware'
+        mac_address: 'Dirección MAC'
+        product: 'Producto'
+        product_name: 'Producto'
+        product_quantity: 'Cantidad de productos'
+        provider: 'Proveedor'
+        serial_number: 'Número de serie'
+        status: 'Estado'
+        stock: 'stock total'
+        stock_deposit: 'stock deposito'
+        product_number: 'Nu. Producto'
+        category: 'Categoría'
+        producer: 'Fabricante'
+        producer_type: 'Tipo de Fabricante'
+        family: 'Familia'
+
+      invoice:
+        client: 'Cliente'
+        contabilium: 'Contabilium'
+        emission_date: 'Fecha'
+        expiry_date: 'Vencimiento'
+        iva_amount: 'Monto IVA'
+        net_amount: 'Monto neto'
+        notes: 'Observaciones'
+        sale_condition: 'Condición de venta'
+        total_amount: 'Total'
+        ucrm: 'UCRM'
+        voucher_type: 'Tipo de comprobante'
+      invoice_item:
+        amount: 'Subtotal'
+        description: 'Descripción'
+        discount: 'Bonificación'
+        iva: '% IVA'
+        iva_amount: 'IVA'
+        net_amount: 'Neto'
+        quantity: 'Cantidad'
+      move:
+        move_date: 'Fecha del movimiento'
+        status: 'Estado'
+        user_register: 'Usuario emisor'
+        user_take: 'Usuario receptor'
+        voucher_type: 'Tipo de comprobante'
+        voucher_number: 'Número de comprobante'
+        site_from: 'Depósito origen'
+        site_to: 'Depósito destino'
+        deposit_name: 'Depósito'
+      move_detail:
+        site_from: 'Depósito origen'
+        site_to: 'Depósito destino'
+      plan_service:
+        name: 'Servicio'
+      producer:
+          name: 'Fabricante'
+      product:
+        ac: 'Corriente alterna'
+        category: 'Categoría'
+        description: 'Descripción'
+        dbi: 'Potencia de antena (DBI)'
+        family: 'Familia'
+        name: 'Producto'
+        unit: 'Unidad de medida'
+        product_number: 'Número de producto'
+        product_type: 'Tipo'
+        power_in: 'Potencia de entrada'
+        power_out: 'Potencia de salida'
+        poe: 'Energía sobre ethernet'
+        producer: 'Fabricante'
+        product_type: 'Tipo de producto'
+        reorder_point_default: 'Punto de reorden por defecto'
+        stock_min_default: 'Stock mínimo por defecto'
+      product_type:
+        name: 'Tipo de Producto'
+        description: 'Descripción'
+      provider:
+        contact_name: "Razón Social del Proveedor"
+        name: 'Nombre del Proveedor'
+        email: 'Correo Electronico'
+        website: 'Página Web'
+        tax_category_number: 'CUIT' 
+        identification_number: 'DNI'
+        withholdingstatus: 'Agente de retención'
+        tax_category: 'Categoría ante el IVA' 
+        contacts: 'Telefono del Proveedor'
+        address: 'Dirección del proveedor'
+        city: 'Ciudad'
+        state: 'Provincia'
+        country: 'País'
+      tax_category:
+        name: 'Nombre de la categoría'
+        comment: 'Comentario'
+      telephone_type:
+        name: 'Tipo de Telefono'
+        description: 'Descripción'
+      technical_service:
+        arrival_time: 'Hora de llegada'
+        balancer: 'Balanceador'
+        cable_length: 'Longitud de cable'
+        city: 'Ciudad'
+        client: 'Cliente'
+        corporate_cellphones: 'Celulares de la empresa'
+        date: 'Fecha'
+        datetime: 'Fecha'
+        departure_time: 'Hora de salida'
+        device: 'Antena'
+        equipment_cost: 'Costo de equipos'
+        google_maps_url: 'Google Maps'
+        ground_wire_setup_type: 'Cable a tierra'
+        labour_cost: 'Costo de mano de obra'
+        observations: 'Observaciones'
+        organization: 'Organización'
+        plan_service: 'Servicio'
+        plug_adapter_quantity: 'Cantidad de fichas'
+        router_model: 'Modelo de router'
+        router_serial_number: 'Número de serie del router'
+        support_type: 'Tipo de soporte'
+        surge_protector_setup_type: 'Estabilizador de tensión / UPS'
+        technicians: 'Técnicos'
+        total_cost: 'Costo total'
+        tower: 'Torre'
+        transmitter: 'Emisora'
+        user: 'Usuario'
+        user_show: 'Registrado por'
+        wifi_password: 'Contraseña Wi-Fi'
+        wifi_ssid: 'SSID Wi-Fi'
+        work_order_number: 'Orden de trabajo'
+        work_types: 'Tipos de trabajo' 
+
+      technician:
+        active: 'Activo'
+        firstname: 'Nombre'
+        lastname: 'Apellido'
+        name: 'Nombre'
+
+      voucher_type:
+        name: 'Tipo de comprobante'
+        description: 'Descripción del comprobante'
+      technical_service_technicians: 'Servicios Técnicos'
+      withholding_tax:
+        withholding: 'Nombre de la Retención'
+        comment: 'Comentario'
+      work_type:
+        name: 'Nombre' 
+
+      user:
+        active: 'Activo'
+        firstname: 'Nombre'
+        group: 'Grupo'
+        lastname: 'Apellido'
+        login: 'Nombre de usuario o correo electrónico'
+        name: 'Nombre'
+        technician: 'Técnico'
+        username: 'Nombre de usuario'
+
+
+    errors:
+      models:
+        account:
+          attributes:
+            base:
+              children: 'No se puede eliminar esta cuenta porque es madre de otras cuentas'
+            imputable:
+              children: 'no puede cambiarse porque esta cuenta tiene descendientes'
+            parent_id:
+              imputable: 'no puede ser una cuenta imputable'
+        billing_export:
+          attributes:
+            export_type:
+              inclusion: 'El tipo de exportación no está disponible'
+            technical_services:
+              amount_zero: 'No se pueden facturar servicios técnicos cuyo monto sea $0'
+              billed: 'Hay servicios técnicos que ya fueron facturados o están cerrados'
+              empty: 'Debe seleccionar al menos un servicio técnico'
+        corporate_cellphone:
+          delete_error: 'No se puede eliminar este teléfono'
+          delete_success: 'Se ha eliminado el teléfono'
+        deposit:
+          delete_success: 'Se ha eliminado el depósito'
+        group:
+          delete_error: 'No se pudo eliminar este grupo'
+          delete_success: 'Se ha eliminado el grupo'
+        technical_service:
+          attributes:
+            base:
+              billed: 'No se puede modificar un servicio técnico que ya ha sido facturado'
+            client:
+              not_synced: 'no se encuentra sincronizado con UCRM o Contabilium'
+            corporate_cellphones:
+              empty_corporate_cellphones: 'no puede estar vacío'
+            technicians:
+              empty_technicians: 'no puede estar vacío'
+            work_types:
+              empty_work_types: 'no puede estar vacío'
+          delete_error: 'No se pudo eliminar este Servicio Técnico'
+          delete_success: 'Se ha eliminado el Servicio Técnico'
+        technician:
+          delete_error: 'No se puede eliminar este técnico'
+          delete_success: 'Se ha eliminado el técnico'
+        user:
+          delete_error: 'No se pudo eliminar este usuario'
+          delete_success: 'Se ha eliminado el usuario'
+        work_type:
+          delete_error: 'No se puede eliminar este tipo de trabajo'
+          delete_success: 'Se ha eliminado el tipo de trabajo'
+        category:
+          delete_error: 'No se puede eliminar esta Categoría'
+          delete_success: 'Se ha eliminado la categoría'
+        producer:
+          delete_error: 'No se puede eliminar este fabricante'
+          delete_success: 'Se ha eliminado el fabricante'
+        family:
+          delete_error: 'No se puede eliminar esta familia'
+          delete_success: 'Se ha eliminado la familia'
+        provider:
+          delete_error: 'No se puede eliminar este proveedor'
+          delete_success: 'Se ha eliminado el proveedor'
+        product_type:
+          delete_error: 'No se puede eliminar este tipo de producto'
+          delete_success: 'Se ha eliminado el tipo de producto'
+        deposit_type:
+          delete_error: 'No se puede eliminar este tipo de deposito'
+          delete_success: 'Se ha eliminado el tipo de deposito'
+        deposit:
+          delete_error: 'No se puede eliminar este  deposito'
+          delete_success: 'Se ha eliminado el deposito'
+        provider:
+          delete_error: 'No se puede eliminar este proveedor'
+          delete_success: 'Se ha eliminado el proveedor'
+        voucher_type:
+          delete_error: 'No se puede eliminar este tipo de comprobante'
+          delete_success: 'Se ha eliminado el tipo de comprobante'
+        tax_category:
+          delete_error: 'No se puede eliminar este tipo de categoria ante el IVA'
+          delete_success: 'Se ha eliminado el tipo de categoria ante el IVA'
+        withholding_tax:
+          delete_error: 'No se puede eliminar esta  Retención'
+          delete_success: 'Se ha eliminado la  Retención'
+
+    models:
+      category:
+        one: 'Categoría'
+        other: 'Categorías'
+      client:
+        one: 'Cliente'
+        other: 'Clientes'
+      corporate_cellphone:
+        one: 'Celular'
+        other: 'Celulares'
+      deposit:
+        one: 'Depósito'
+        other: 'Depósitos'
+      family:
+        one: 'Familia'
+        other: 'Familias'
+      group:
+        one: 'Grupo'
+        other: 'Grupos'
+      inventory:
+        one: 'Inventario'
+        other: 'Inventarios'
+      invoice:
+        one: 'Comprobante'
+        other: 'Comprobantes'
+      move:
+        one: 'Movimientos entre Deposito'
+        other: 'Movimientos entre Depositos'
+      product:
+        one: 'Producto'
+        other: 'Productos'
+      provider:
+        one: 'Proveedor'
+        other: 'Proveedores'
+      producer:
+        one: 'Fabricante'
+        other: 'Fabricantes'
+      technical_service:
+        one: 'Servicio Técnico'
+        other: 'Servicios Técnicos'
+      technical_service_technician:
+        one: 'Servicios Técnicos'
+        other: 'Servicios Técnicos'
+      technician:
+        one: 'Técnico'
+        other: 'Técnicos'
+      telephone_type:
+        one: 'Tipos de Telefonos'
+        other: 'Tipos de Telefonos'
+      user:
+        one: 'Usuario'
+        other: 'Usuarios'
+      work_type:
+        one: 'Tipo de trabajo'
+        other: 'Tipos de trabajo'
+      voucher_type:
+        one: 'Tipo de comprobante'
+        other: 'Tipo de comprobantes'
+
+  invoicing:
+    ucrm_admin_note: 'Creado por sistema 10+ el %{date}'
+    technical_service:
+      one: 'Servicio técnico'
+      other: 'Servicios técnicos'
+      notes: 'Servicio técnico del %{date} - Nº de orden de trabajo: %{number} - Trabajos realizados: %{work_types}'
